@@ -1,19 +1,16 @@
+import { Layout } from 'antd';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Wrapper = styled(Layout)`
   background-color: violet;
+  height: 100vh;
 `;
 
 const App: React.FunctionComponent = () => (
   <Wrapper>
-    <header className="App-header">
-      <p>
-        Edit <code>src/App.tsx</code> and save to reload.
-      </p>
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-        Learn React
-      </a>
-    </header>
+    <Layout.Header>Header</Layout.Header>
+    <Layout.Content>Content</Layout.Content>
+    <Layout.Footer>Footer</Layout.Footer>
   </Wrapper>
 );
 
