@@ -14,6 +14,7 @@
     "@typescript-eslint/no-unused-vars": 2,
     "@typescript-eslint/no-explicit-any": 2,
     "curly": 2,
+    "default-param-last": 0,
     "eslint-comments/no-unlimited-disable": 0,
     "func-names": 2,
     "import/default": 0,
