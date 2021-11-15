@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  background-color: violet;
+`;
 
 const App: React.FunctionComponent = () => (
-  <div className="App">
+  <Wrapper>
     <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
       <p>
         Edit <code>src/App.tsx</code> and save to reload.
       </p>
@@ -12,7 +14,7 @@ const App: React.FunctionComponent = () => (
         Learn React
       </a>
     </header>
-  </div>
+  </Wrapper>
 );
 
 export default App;
