@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { EditOutlined, CheckOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Layout } from 'antd';
 import { useState } from 'react';

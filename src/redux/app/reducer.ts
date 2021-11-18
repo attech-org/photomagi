@@ -25,10 +25,13 @@ const app = (store = initialStore, action: AppActionTypes) => {
         doneItems: [...store.doneItems, action.payload],
       };
     case AppActions.SUBMIT_ITEM:
-      return {
-        ...store,
-        todoItems: [...store.todoItems, action.payload],
-      };
+      if (action.payload) {
+        return {
+          ...store,
+          todoItems: [...store.todoItems, action.payload],
+        };
+      }
+      return store;
     default:
       return store;
   }
