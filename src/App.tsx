@@ -1,9 +1,11 @@
 import { Button, Layout } from 'antd';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import { decreaseCounter, increaseCounter } from './redux/app/actions';
+import { addTodoItem, removeTodoItem } from './redux/app/actions';
 import { AppStore } from './redux/app/reducer';
+// import { AppActions } from './redux/app/types';
 import { RootStore } from './redux/store';
 
 const Wrapper = styled(Layout)`
@@ -11,29 +13,48 @@ const Wrapper = styled(Layout)`
   height: 100vh;
 `;
 
+const Input = styled.input``;
+
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const count = useSelector<RootStore, AppStore['counter']>((store) => store.app.counter);
+  const todos = useSelector<RootStore, AppStore['todos']>((store) => store.app.todos);
+  // const count = useSelector<RootStore, AppStore['counter']>((store) => store.app.counter);
 
-  const handleInc = () => {
-    dispatch(increaseCounter(1));
+  const [todoInput, setTodoInput] = useState('');
+
+  const handleOnChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTodoInput(e.target.value);
   };
 
-  const handleDec = () => {
-    dispatch(decreaseCounter(1));
+  const handleAddTodo = () => {
+    dispatch(addTodoItem({ name: todoInput, id: Date.now() }));
+    setTodoInput('');
+  };
+
+  const handleRemove = (idItem: number) => {
+    dispatch(removeTodoItem({ id: idItem }));
   };
 
   return (
     <Wrapper>
       <Layout.Header>Header</Layout.Header>
       <Layout.Content>
-        <Button onClick={handleInc} shape="circle">
-          +
+        <Input onChange={handleOnChangeInput} value={todoInput} />
+        <Button onClick={handleAddTodo} shape="circle">
+          Add Todo
         </Button>
-        {count}
-        <Button onClick={handleDec} shape="circle">
+
+        {todos.map((todo) => (
+          <div key={todo.id}>
+            {todo.name}
+            <Button onClick={() => handleRemove(todo.id)}>X</Button>
+          </div>
+        ))}
+
+        {/* {count} */}
+        {/* <Button onClick={handleRemoveTodo} shape="circle">
           -
-        </Button>
+        </Button> */}
       </Layout.Content>
       <Layout.Footer>Footer</Layout.Footer>
     </Wrapper>

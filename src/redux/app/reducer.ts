@@ -1,19 +1,24 @@
 import { AppActionTypes, AppActions } from './types';
 
+export interface TodoItem {
+  name: string,
+  id: number,
+}
+
 export interface AppStore {
-  counter: number;
+  todos: TodoItem[];
 }
 
 const initialStore: AppStore = {
-  counter: 0,
+  todos: [{ id: 1, name: 'hallo, this is ToDo List' }],
 };
 
 const app = (store = initialStore, action: AppActionTypes) => {
   switch (action.type) {
-    case AppActions.INC_COUNTER:
-      return { ...store, counter: store.counter + action.payload };
-    case AppActions.DEC_COUNTER:
-      return { ...store, counter: store.counter - action.payload };
+    case AppActions.ADD_TODO:
+      return { ...store, todos: [...store.todos, action.payload] };
+    case AppActions.REMOVE_TODO:
+      return { ...store, todos: store.todos.filter((el) => el.id !== action.payload) };
     default:
       return store;
   }

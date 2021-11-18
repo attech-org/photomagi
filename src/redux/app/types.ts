@@ -1,16 +1,18 @@
+import { TodoItem } from './reducer';
+
 export enum AppActions {
-  INC_COUNTER = 'INC_COUNTER',
-  DEC_COUNTER = 'DEC_COUNTER',
+  ADD_TODO = 'ADD_TODO',
+  REMOVE_TODO = 'REMOVE_TODO',
 }
 
-interface IncreaseCounterAction {
-  type: AppActions.INC_COUNTER;
+interface AddTodoAction {
+  type: AppActions.ADD_TODO;
+  payload: TodoItem;
+}
+
+interface RemoveTodoAction {
+  type: AppActions.REMOVE_TODO;
   payload: number;
 }
 
-interface DecreaseCounterAction {
-  type: AppActions.DEC_COUNTER;
-  payload: number;
-}
-
-export type AppActionTypes = IncreaseCounterAction | DecreaseCounterAction;
+export type AppActionTypes = AddTodoAction | RemoveTodoAction;

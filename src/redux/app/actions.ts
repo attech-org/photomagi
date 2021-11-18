@@ -1,11 +1,12 @@
+import { TodoItem } from './reducer';
 import { AppActionTypes, AppActions } from './types';
 
-export const increaseCounter = (value: number): AppActionTypes => ({
-  type: AppActions.INC_COUNTER,
+export const addTodoItem = (value: TodoItem): AppActionTypes => ({
+  type: AppActions.ADD_TODO,
   payload: value,
 });
 
-export const decreaseCounter = (value: number): AppActionTypes => ({
-  type: AppActions.DEC_COUNTER,
+export const removeTodoItem = (value: number): AppActionTypes => ({
+  type: AppActions.REMOVE_TODO,
   payload: value,
 });
