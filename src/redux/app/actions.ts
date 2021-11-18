@@ -15,3 +15,7 @@ export const addToDoneAction = (item: TodoItem): AppActionTypes => ({
   type: AppActions.ADD_TO_DONE,
   payload: item,
 });
+export const submitItemAction = (item?: TodoItem): AppActionTypes => ({
+  type: AppActions.SUBMIT_ITEM,
+  payload: item,
+});

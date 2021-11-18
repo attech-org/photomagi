@@ -1,7 +1,7 @@
 import { AppActionTypes, AppActions } from './types';
 
 export interface TodoItem {
-  id: number | null;
+  id: number;
   itemName: string;
 }
 export interface AppStore {
@@ -24,7 +24,11 @@ const app = (store = initialStore, action: AppActionTypes) => {
         todoItems: store.todoItems.filter((singleItem) => singleItem !== action.payload),
         doneItems: [...store.doneItems, action.payload],
       };
-
+    case AppActions.SUBMIT_ITEM:
+      return {
+        ...store,
+        todoItems: [...store.todoItems, action.payload],
+      };
     default:
       return store;
   }
