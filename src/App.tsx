@@ -1,15 +1,28 @@
 import { Button, Card, Divider, Image, Layout, Space } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 
 import { loadFighters } from './redux/app/actions';
-import { AppStore } from './redux/app/reducer';
+import { AppStore, Fighter } from './redux/app/reducer';
 import { RootStore } from './redux/store';
 
 const general = css`
   .ant-card-body {
     background-color: white;
+  }
+`;
+
+const rotate = css`
+  .ant-space-item {
+    .ant-image-img {
+      height: 300px;
+    }
+    &:last-of-type {
+      .ant-image-img {
+        transform: rotateY(180deg);
+      }
+    }
   }
 `;
 
@@ -44,6 +57,14 @@ const FighterCard = styled(Card)`
 
 const FighterCardMeta = styled(Card.Meta)``;
 
+const BigFighterCard = styled(FighterCard)`
+  width: 300px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 const StyledFighterImage = styled(Image)`
   height: 150px;
   width: auto;
@@ -66,14 +87,31 @@ const ControlPanel = styled(Space)`
   justify-content: center;
 `;
 
+const Arena = styled(Space)`
+  ${rotate}
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`;
+
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const fighters = useSelector<RootStore, AppStore['fighters']>((store) => store.app.fighters);
   const [selectedFighters, onSelectedFightersChange] = useState<string[]>([]);
+  const [[fighter1, fighter2], onSelectedFightersFullChange] = useState<Fighter[]>([]);
+  const [isFighting, onFightingStateChange] = useState<boolean>(false);
+
+  useEffect(() => {
+    onSelectedFightersFullChange(
+      selectedFighters.map((name) => fighters.find((el) => el.name === name) as Fighter),
+    );
+  }, [selectedFighters]);
 
   const fetchUsers = async () => {
     dispatch(loadFighters());
   };
+
+  const handleFightClick = () => onFightingStateChange(!isFighting);
 
   const handleFighterClick = (fighterName: string) => {
     if (selectedFighters.length < 2) {
@@ -88,28 +126,51 @@ const App: React.FunctionComponent = () => {
     <Wrapper>
       <Layout.Header>Header</Layout.Header>
       <Content>
-        <FightersPanel>
-          {fighters.length ? (
-            fighters.map(({ name, source, attack, defense, health }) => (
-              <FighterCard
-                key={name}
-                aria-colindex={selectedFighters.indexOf(name)}
-                onClick={() => handleFighterClick(name)}
-                cover={<StyledFighterImage alt="example" src={source} />}
-              >
-                <FighterCardMeta
-                  title={name}
-                  description={`Attack: ${attack} Defence: ${defense} Health: ${health}`}
-                />
-              </FighterCard>
-            ))
-          ) : (
-            <Button onClick={fetchUsers}>Load fighters</Button>
-          )}
-        </FightersPanel>
+        {isFighting ? (
+          <Arena align="center">
+            <BigFighterCard cover={<StyledFighterImage alt="example" src={fighter1.source} />}>
+              <FighterCardMeta
+                title={fighter1.name}
+                description={`Attack: ${fighter1.attack} Defence: ${fighter1.defense} Health: ${fighter1.health}`}
+              />
+            </BigFighterCard>
+            <BigFighterCard cover={<StyledFighterImage alt="example" src={fighter2.source} />}>
+              <FighterCardMeta
+                title={fighter2.name}
+                description={`Attack: ${fighter2.attack} Defence: ${fighter2.defense} Health: ${fighter2.health}`}
+              />
+            </BigFighterCard>
+          </Arena>
+        ) : (
+          <FightersPanel>
+            {fighters.length ? (
+              fighters.map(({ name, source, attack, defense, health }) => (
+                <FighterCard
+                  key={name}
+                  aria-colindex={selectedFighters.indexOf(name)}
+                  onClick={() => handleFighterClick(name)}
+                  cover={<StyledFighterImage alt="example" src={source} />}
+                >
+                  <FighterCardMeta
+                    title={name}
+                    description={`Attack: ${attack} Defence: ${defense} Health: ${health}`}
+                  />
+                </FighterCard>
+              ))
+            ) : (
+              <Button onClick={fetchUsers}>Load fighters</Button>
+            )}
+          </FightersPanel>
+        )}
         <Divider />
         <ControlPanel>
-          <Button disabled={selectedFighters.length < 2} type="primary" danger size="large">
+          <Button
+            onClick={handleFightClick}
+            disabled={selectedFighters.length < 2}
+            type="primary"
+            danger
+            size="large"
+          >
             Fight!
           </Button>
         </ControlPanel>
