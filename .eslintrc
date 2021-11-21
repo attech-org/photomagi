@@ -26,6 +26,7 @@
     "import/no-named-as-default-member": 0,
     "import/prefer-default-export": 0,
     "jsx-a11y/alt-text": [1],
+    "linebreak-style": [2, "windows"],
     "no-console": [1, { "allow": ["warn", "error"] }],
     "no-duplicate-imports": 2,
     "no-shadow": 0,
