@@ -6,7 +6,12 @@ export const addTodoItem = (value: TodoItem): AppActionTypes => ({
   payload: value,
 });
 
-export const removeTodoItem = (value: number): AppActionTypes => ({
+export const removeTodoItem = (value: TodoItem): AppActionTypes => ({
   type: AppActions.REMOVE_TODO,
+  payload: value,
+});
+
+export const editTodoItem = (value: TodoItem): AppActionTypes => ({
+  type: AppActions.EDIT_TODO,
   payload: value,
 });

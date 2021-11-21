@@ -1,8 +1,8 @@
 import { AppActionTypes, AppActions } from './types';
 
 export interface TodoItem {
-  name: string,
-  id: number,
+  name: string;
+  id: number;
 }
 
 export interface AppStore {
@@ -18,7 +18,15 @@ const app = (store = initialStore, action: AppActionTypes) => {
     case AppActions.ADD_TODO:
       return { ...store, todos: [...store.todos, action.payload] };
     case AppActions.REMOVE_TODO:
-      return { ...store, todos: store.todos.filter((el) => el.id !== action.payload) };
+      return { ...store, todos: store.todos.filter((el) => el !== action.payload) };
+    case AppActions.EDIT_TODO:
+      if (action.payload) {
+        return {
+          ...store,
+          todos: store.todos.map((el) => (el.id === action.payload?.id ? action.payload : el)),
+        };
+      }
+      return store;
     default:
       return store;
   }
