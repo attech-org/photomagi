@@ -1,4 +1,5 @@
-import { Button, Card, Divider, Image, Layout, Space } from 'antd';
+/* eslint-disable no-nested-ternary */
+import { Button, Card, Divider, Image, Layout, Progress, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -32,8 +33,11 @@ const Wrapper = styled(Layout)`
 `;
 
 const Content = styled(Layout.Content)`
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url('https://cutewallpaper.org/21/street-fighter-background/Street-Fighter-background-Street-fighter-characters-.jpg');
+  background: ${(props) => `${
+    props['aria-expanded'] ? 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), ' : ''
+  }
+      url('https://cutewallpaper.org/21/street-fighter-background/Street-Fighter-background-Street-fighter-characters-.jpg')
+    `};
   background-size: auto 100%;
   background-position: center;
   overflow: auto;
@@ -56,14 +60,6 @@ const FighterCard = styled(Card)`
 `;
 
 const FighterCardMeta = styled(Card.Meta)``;
-
-const BigFighterCard = styled(FighterCard)`
-  width: 300px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
 
 const StyledFighterImage = styled(Image)`
   height: 150px;
@@ -92,20 +88,79 @@ const Arena = styled(Space)`
   width: 100%;
   display: flex;
   justify-content: space-around;
+  align-items: flex-end;
+  height: 80vh;
 `;
+
+const Img = styled.img``;
+
+const RotatedImg = styled(Img)`
+  transform: rotateY(180deg);
+`;
+
+const HP = styled.div`
+  background-color: red;
+  padding: 0 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  width: 300px;
+`;
+
+const WinPanel = styled(Space)`
+  width: 100%;
+  align-items: center;
+`;
+
+const WinnerName = styled.div`
+  font-size: 60px;
+  color: orange;
+  font-weight: bold;
+  text-align: center;
+`;
+
+const sleep = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 const App: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const fighters = useSelector<RootStore, AppStore['fighters']>((store) => store.app.fighters);
-  const [selectedFighters, onSelectedFightersChange] = useState<string[]>([]);
-  const [[fighter1, fighter2], onSelectedFightersFullChange] = useState<Fighter[]>([]);
-  const [isFighting, onFightingStateChange] = useState<boolean>(false);
+  const [selectedFighters, onSelectedFightersChange] = useState<string[]>([]); // done
+  const [[fighter1, fighter2], onFightersChange] = useState<Fighter[]>([]);
+  const [isFighting, onFightingStateChange] = useState<boolean>(false); // done
+  const [winnerName, onWinnerNameChange] = useState<string>(''); // done
 
   useEffect(() => {
-    onSelectedFightersFullChange(
+    onFightersChange(
       selectedFighters.map((name) => fighters.find((el) => el.name === name) as Fighter),
     );
   }, [selectedFighters]);
+
+  const kick = async (attacker: Fighter, defencer: Fighter) => {
+    await sleep(1000);
+    const kickValue = attacker.attack * (defencer.defense / 3);
+    const tempDefencer: Fighter = {
+      ...defencer,
+      health: Math.floor(defencer.health - kickValue),
+    };
+    if (tempDefencer.health <= 0) {
+      onWinnerNameChange(attacker.name);
+      onFightingStateChange(false);
+    } else {
+      kick(tempDefencer, attacker);
+    }
+    onFightersChange(
+      [fighter1, fighter2].map((el) => (el.name === tempDefencer.name ? tempDefencer : attacker)),
+    );
+  };
+
+  useEffect(() => {
+    if (isFighting) {
+      kick(fighter1, fighter2);
+    }
+  }, [isFighting]);
 
   const fetchUsers = async () => {
     dispatch(loadFighters());
@@ -122,24 +177,49 @@ const App: React.FunctionComponent = () => {
     }
   };
 
+  const handleNewFight = () => {
+    onWinnerNameChange('');
+    onSelectedFightersChange([]);
+    onFightersChange([]);
+  };
+
   return (
     <Wrapper>
-      <Layout.Header>Header</Layout.Header>
-      <Content>
-        {isFighting ? (
+      <Content aria-expanded={!isFighting}>
+        {winnerName ? (
+          <WinPanel direction="vertical">
+            <Img src="https://pngimage.net/wp-content/uploads/2018/06/ko-png-3.png" />
+            <WinnerName>{winnerName}</WinnerName>
+            <Button onClick={handleNewFight}>Start new fight</Button>
+          </WinPanel>
+        ) : isFighting ? (
           <Arena align="center">
-            <BigFighterCard cover={<StyledFighterImage alt="example" src={fighter1.source} />}>
-              <FighterCardMeta
-                title={fighter1.name}
-                description={`Attack: ${fighter1.attack} Defence: ${fighter1.defense} Health: ${fighter1.health}`}
-              />
-            </BigFighterCard>
-            <BigFighterCard cover={<StyledFighterImage alt="example" src={fighter2.source} />}>
-              <FighterCardMeta
-                title={fighter2.name}
-                description={`Attack: ${fighter2.attack} Defence: ${fighter2.defense} Health: ${fighter2.health}`}
-              />
-            </BigFighterCard>
+            <Space direction="vertical">
+              <Img alt="example" src={fighter1.source} />
+              <HP>
+                <Progress
+                  percent={
+                    100 *
+                    (fighter1.health /
+                      (fighters.find((el) => el.name === fighter1.name)?.health || 100))
+                  }
+                  showInfo={false}
+                />
+              </HP>
+            </Space>
+            <Space direction="vertical">
+              <RotatedImg alt="example" src={fighter2.source} />
+              <HP>
+                <Progress
+                  percent={
+                    100 *
+                    (fighter2.health /
+                      (fighters.find((el) => el.name === fighter2.name)?.health || 100))
+                  }
+                  showInfo={false}
+                />
+              </HP>
+            </Space>
           </Arena>
         ) : (
           <FightersPanel>
@@ -163,17 +243,19 @@ const App: React.FunctionComponent = () => {
           </FightersPanel>
         )}
         <Divider />
-        <ControlPanel>
-          <Button
-            onClick={handleFightClick}
-            disabled={selectedFighters.length < 2}
-            type="primary"
-            danger
-            size="large"
-          >
-            Fight!
-          </Button>
-        </ControlPanel>
+        {!isFighting && !winnerName && (
+          <ControlPanel>
+            <Button
+              onClick={handleFightClick}
+              disabled={selectedFighters.length < 2}
+              type="primary"
+              danger
+              size="large"
+            >
+              Fight!
+            </Button>
+          </ControlPanel>
+        )}
       </Content>
     </Wrapper>
   );
