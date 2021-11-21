@@ -28,7 +28,9 @@ const app = (store = initialStore, action: AppActionTypes) => {
       if (action.payload) {
         return {
           ...store,
-          todoItems: [...store.todoItems, action.payload],
+          todoItems: store.todoItems.map((el) =>
+            el.id === action.payload?.id ? action.payload : el,
+          ),
         };
       }
       return store;

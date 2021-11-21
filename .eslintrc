@@ -43,6 +43,7 @@
     "react/jsx-props-no-spreading": 0,
     "react/jsx-uses-react": 0,
     "react/jsx-uses-vars": 2,
+    "no-confusing-arrow": 0,
     "react/no-string-refs": 2,
     "react/no-unknown-property": 2,
     "react/prefer-stateless-function": 2,

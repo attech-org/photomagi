@@ -56,7 +56,6 @@ const App: React.FunctionComponent = () => {
   const [input, onInputChange] = useState({ itemName: '' });
   const [editableItemId, onEditableItemIdChange] = useState<number>();
   const [itemInput, onItemInputChange] = useState<TodoItem>();
-  console.log(itemInput?.itemName);
   const addItem = (itemName: string | null) => {
     if (itemName) {
       const item = {
