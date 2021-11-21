@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "https://attech-org.github.io/photomagi/static/js/main.8f148d37.chunk.js",
-    "main.js.map": "https://attech-org.github.io/photomagi/static/js/main.8f148d37.chunk.js.map",
+    "main.js": "https://attech-org.github.io/photomagi/static/js/main.851f1427.chunk.js",
+    "main.js.map": "https://attech-org.github.io/photomagi/static/js/main.851f1427.chunk.js.map",
     "runtime-main.js": "https://attech-org.github.io/photomagi/static/js/runtime-main.bb094acb.js",
     "runtime-main.js.map": "https://attech-org.github.io/photomagi/static/js/runtime-main.bb094acb.js.map",
     "static/css/2.a95be28f.chunk.css": "https://attech-org.github.io/photomagi/static/css/2.a95be28f.chunk.css",
-    "static/js/2.7be543cd.chunk.js": "https://attech-org.github.io/photomagi/static/js/2.7be543cd.chunk.js",
-    "static/js/2.7be543cd.chunk.js.map": "https://attech-org.github.io/photomagi/static/js/2.7be543cd.chunk.js.map",
+    "static/js/2.d6760ddb.chunk.js": "https://attech-org.github.io/photomagi/static/js/2.d6760ddb.chunk.js",
+    "static/js/2.d6760ddb.chunk.js.map": "https://attech-org.github.io/photomagi/static/js/2.d6760ddb.chunk.js.map",
     "index.html": "https://attech-org.github.io/photomagi/index.html",
     "static/css/2.a95be28f.chunk.css.map": "https://attech-org.github.io/photomagi/static/css/2.a95be28f.chunk.css.map",
-    "static/js/2.7be543cd.chunk.js.LICENSE.txt": "https://attech-org.github.io/photomagi/static/js/2.7be543cd.chunk.js.LICENSE.txt"
+    "static/js/2.d6760ddb.chunk.js.LICENSE.txt": "https://attech-org.github.io/photomagi/static/js/2.d6760ddb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.bb094acb.js",
     "static/css/2.a95be28f.chunk.css",
-    "static/js/2.7be543cd.chunk.js",
-    "static/js/main.8f148d37.chunk.js"
+    "static/js/2.d6760ddb.chunk.js",
+    "static/js/main.851f1427.chunk.js"
   ]
 }
