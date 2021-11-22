@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Dashboard from './pages/Dashboard';
+import DashboardPage from './pages/Dashboard';
 import LandingPage from './pages/Landing';
 
 const App: React.FunctionComponent = () => (
@@ -10,7 +10,7 @@ const App: React.FunctionComponent = () => (
         <LandingPage />
       </Route>
       <Route path="/dashboard">
-        <Dashboard />
+        <DashboardPage />
       </Route>
       <Route path="*">
         <div>THIS PAGE NOT EXIST</div>
