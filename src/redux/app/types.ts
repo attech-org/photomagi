@@ -1,4 +1,4 @@
-import { MostPopularMovie, MoviesResponse } from '../../services/types';
+import { MostPopularMovie } from '../../services/types';
 import { Fighter } from './reducer';
 
 export enum AppActions {
@@ -24,7 +24,7 @@ interface AddFightersAction {
 }
 interface SetMoviesDataAction {
   type: AppActions.SET_MOVIES;
-  payload: MoviesResponse<MostPopularMovie>[];
+  payload: MostPopularMovie[];
 }
 
 export type AppActionTypes =

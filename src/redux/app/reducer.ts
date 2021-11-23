@@ -1,4 +1,4 @@
-import { MostPopularMovie, MoviesResponse } from '../../services/types';
+import { MostPopularMovie } from '../../services/types';
 import { AppActionTypes, AppActions } from './types';
 
 export interface Fighter {
@@ -12,7 +12,7 @@ export interface Fighter {
 export interface AppStore {
   counter: number;
   fighters: Fighter[];
-  movies: MoviesResponse<MostPopularMovie>[];
+  movies: MostPopularMovie[];
 }
 
 const initialStore: AppStore = {
@@ -22,6 +22,7 @@ const initialStore: AppStore = {
 };
 
 const app = (store = initialStore, action: AppActionTypes) => {
+  console.log(store);
   switch (action.type) {
     case AppActions.INC_COUNTER:
       return { ...store, counter: store.counter + action.payload };

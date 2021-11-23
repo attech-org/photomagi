@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 
 import { mostPopularMovies } from '../../services/api';
-import { MostPopularMovie, MoviesResponse } from '../../services/types';
+import { MostPopularMovie } from '../../services/types';
 import { Fighter } from './reducer';
 import { AppActionTypes, AppActions } from './types';
 
@@ -28,8 +28,14 @@ export const loadFighters = () => async (dispatch: Dispatch<AppActionTypes>) => 
   dispatch(setFighters(data));
 };
 
-export const loadMovies =
-  () =>
-    async (dispatch: Dispatch<AppActionTypes>): Promise<MoviesResponse<MostPopularMovie>> => {
-      dispatch(mostPopularMovies());
-    };
+export const setPopularMovies = (value: MostPopularMovie[]): AppActionTypes => ({
+  type: AppActions.SET_MOVIES,
+  payload: value,
+});
+
+export const loadMovies = () => async (dispatch: Dispatch<AppActionTypes>) => {
+  const data = await mostPopularMovies();
+  if (data) {
+    dispatch(setPopularMovies(data));
+  }
+};
