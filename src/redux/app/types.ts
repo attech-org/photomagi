@@ -1,9 +1,11 @@
+import { MostPopularMovie, MoviesResponse } from '../../services/types';
 import { Fighter } from './reducer';
 
 export enum AppActions {
   INC_COUNTER = 'INC_COUNTER',
   DEC_COUNTER = 'DEC_COUNTER',
   SET_FIGHTERS = 'SET_FIGHTERS',
+  SET_MOVIES = 'SET_MOVIES',
 }
 
 interface IncreaseCounterAction {
@@ -20,5 +22,13 @@ interface AddFightersAction {
   type: AppActions.SET_FIGHTERS;
   payload: Fighter[];
 }
+interface SetMoviesDataAction {
+  type: AppActions.SET_MOVIES;
+  payload: MoviesResponse<MostPopularMovie>[];
+}
 
-export type AppActionTypes = IncreaseCounterAction | DecreaseCounterAction | AddFightersAction;
+export type AppActionTypes =
+  | IncreaseCounterAction
+  | DecreaseCounterAction
+  | AddFightersAction
+  | SetMoviesDataAction;

@@ -1,5 +1,7 @@
 import { Dispatch } from 'react';
 
+import { mostPopularMovies } from '../../services/api';
+import { MostPopularMovie, MoviesResponse } from '../../services/types';
 import { Fighter } from './reducer';
 import { AppActionTypes, AppActions } from './types';
 
@@ -25,3 +27,9 @@ export const loadFighters = () => async (dispatch: Dispatch<AppActionTypes>) => 
   const data = await result.json();
   dispatch(setFighters(data));
 };
+
+export const loadMovies =
+  () =>
+    async (dispatch: Dispatch<AppActionTypes>): Promise<MoviesResponse<MostPopularMovie>> => {
+      dispatch(mostPopularMovies());
+    };
