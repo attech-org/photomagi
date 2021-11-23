@@ -20,20 +20,25 @@ const DashboardContainer: React.FunctionComponent = () => {
   const movies = useSelector<RootStore, AppStore['movies']>((store) => store.app.movies);
   console.log('Axios', movies);
   return (
-    <StyledCarousel autoplay>
-      <div>
-        <Slide1>1</Slide1>
-      </div>
-      <div>
-        <Slide2>2</Slide2>
-      </div>
-      <div>
-        <Slide1>3</Slide1>
-      </div>
-      <div>
-        <Slide1>4</Slide1>
-      </div>
-    </StyledCarousel>
+    <>
+      {movies.map(({ image, id }) => (
+        <div key={id}>{image}</div>
+      ))}
+      <StyledCarousel autoplay>
+        <div>
+          <Slide1>1</Slide1>
+        </div>
+        <div>
+          <Slide2>2</Slide2>
+        </div>
+        <div>
+          <Slide1>3</Slide1>
+        </div>
+        <div>
+          <Slide1>4</Slide1>
+        </div>
+      </StyledCarousel>
+    </>
   );
 };
 export default DashboardContainer;
