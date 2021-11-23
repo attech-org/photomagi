@@ -9,66 +9,95 @@ import {
   StarFilled,
   SwapOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Col, Layout, Menu, Row } from 'antd';
+import { SetStateAction, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import logo from '../assets/img/logo.png';
 
-const { Item, ItemGroup } = Menu;
+const { Item } = Menu;
 
 const Logo = styled.img`
-  width: 50px;
-  height: 50px;
+  display: block;
+  width: 40%;
+  margin: 15% auto 10%;
+`;
+
+const ItemGroupStld = styled(Menu.ItemGroup)`
+  .ant-menu-item-group-title {
+    color: #ffffff;
+    font-weight: 500;
+  }
 `;
 
 const Sidebar: React.FC = () => {
+  const location = useLocation();
+
+  const [currentKey, setCurrentKey] = useState(location.pathname);
   const [isCollapsed, onCollapsedChange] = useState(false);
+
+  useEffect(() => {
+    if (location) {
+      if (currentKey !== location.pathname) {
+        setCurrentKey(location.pathname);
+      }
+    }
+  }, [location, currentKey]);
+
+  const handleClick = (e: { key: SetStateAction<string> }) => {
+    setCurrentKey(e.key);
+  };
+
   return (
     <Layout.Sider
       breakpoint="md"
       collapsible
       collapsed={isCollapsed}
       onCollapse={onCollapsedChange}
+      collapsedWidth={50}
     >
-      <Link to="/">
-        <Logo src={logo} />
-      </Link>
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-        <ItemGroup key="g1" title="MENU">
-          <Item key="1" icon={<AppstoreFilled />}>
+      <Row>
+        <Col>
+          <Link to="/">
+            <Logo src={logo} />
+          </Link>
+        </Col>
+      </Row>
+      <Menu onClick={handleClick} theme="dark" selectedKeys={[currentKey]} mode="inline">
+        <ItemGroupStld key="g1" title="MENU" className="item-group">
+          <Item key="/dashboard" icon={<AppstoreFilled />}>
             <Link to="/dashboard">Dashboard</Link>
           </Item>
-          <Item key="2" icon={<SwapOutlined />}>
+          <Item key="/recent" icon={<SwapOutlined />}>
             <Link to="/recent">Recent</Link>
           </Item>
-          <Item key="3" icon={<FolderViewOutlined />}>
+          <Item key="/discovery" icon={<FolderViewOutlined />}>
             <Link to="/discovery">Discovery</Link>
           </Item>
-          <Item key="4" icon={<DingtalkSquareFilled />}>
+          <Item key="/coming-soon" icon={<DingtalkSquareFilled />}>
             <Link to="/coming-soon">Coming Soon</Link>
           </Item>
-          <Item key="5" icon={<PlayCircleFilled />}>
+          <Item key="/tv-show" icon={<PlayCircleFilled />}>
             <Link to="/tv-show">Tv Show</Link>
           </Item>
-        </ItemGroup>
-        <ItemGroup key="g2" title="LIBRARY">
-          <Item key="6" icon={<DatabaseFilled />}>
+        </ItemGroupStld>
+        <ItemGroupStld key="g2" title="LIBRARY" className="item-group">
+          <Item key="/library" icon={<DatabaseFilled />}>
             <Link to="/library">Library</Link>
           </Item>
-          <Item key="7" icon={<StarFilled />}>
+          <Item key="/my-list" icon={<StarFilled />}>
             <Link to="/my-list">My List</Link>
           </Item>
-        </ItemGroup>
-        <ItemGroup key="g3" title="GENERAL">
-          <Item key="8" icon={<SettingFilled />}>
+        </ItemGroupStld>
+        <ItemGroupStld key="g3" title="GENERAL" className="item-group">
+          <Item key="/settings" icon={<SettingFilled />}>
             <Link to="/settings">Settings</Link>
           </Item>
-          <Item key="9" icon={<LogoutOutlined />}>
+          <Item key="/dashboard" icon={<LogoutOutlined />}>
             <Link to="/dashboard">Log Out</Link>
           </Item>
-        </ItemGroup>
+        </ItemGroupStld>
       </Menu>
     </Layout.Sider>
   );
