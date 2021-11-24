@@ -24,7 +24,7 @@ const DashboardContainer: React.FunctionComponent = () => {
       <Col span={19}>
         <MainCarouselContainer movies={movies} />
         <Col span={24}>
-          <BottomCarouselContainer movies={movies} />
+          <BottomCarouselContainer movies={movies.slice(0, 20)} />
         </Col>
       </Col>
       <Col span={4}>
