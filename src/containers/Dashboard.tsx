@@ -1,44 +1,37 @@
-import { Carousel } from 'antd';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import { Col, Row } from 'antd';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { loadMovies } from '../redux/app/actions';
 import { AppStore } from '../redux/app/reducer';
 import { RootStore } from '../redux/store';
+import { MostPopularMovie } from '../services/types';
+import BottomCarouselContainer from './BottomCarousel';
+import MainCarouselContainer from './MainCarousel';
+import RightPanelContainer from './RightPanel';
 
-const StyledCarousel = styled(Carousel)``;
-const Slide1 = styled.h3`
-  height: 160px;
-  color: #fff;
-  line-height: 160px;
-  text-align: center;
-  background: url('https://klike.net/uploads/posts/2019-05/1556708032_1.jpg');
-`;
-const Slide2 = styled(Slide1)`
-  background: url('https://vypechka-online.ru/wp-content/uploads/2019/09/EQgJ4p77Aeo.jpg');
-`;
+export interface CarouselContainerProps {
+  movies: MostPopularMovie[];
+}
 const DashboardContainer: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const movies = useSelector<RootStore, AppStore['movies']>((store) => store.app.movies);
-  console.log('Axios', movies);
+  useEffect(() => {
+    dispatch(loadMovies());
+  }, []);
   return (
-    <>
-      {movies.map(({ image, id }) => (
-        <div key={id}>{image}</div>
-      ))}
-      <StyledCarousel autoplay>
-        <div>
-          <Slide1>1</Slide1>
-        </div>
-        <div>
-          <Slide2>2</Slide2>
-        </div>
-        <div>
-          <Slide1>3</Slide1>
-        </div>
-        <div>
-          <Slide1>4</Slide1>
-        </div>
-      </StyledCarousel>
-    </>
+    <Row>
+      <Col span={19}>
+        <MainCarouselContainer movies={movies} />
+        <Col span={24}>
+          <BottomCarouselContainer movies={movies} />
+        </Col>
+      </Col>
+      <Col span={4}>
+        <RightPanelContainer movies={movies} />
+      </Col>
+    </Row>
   );
 };
+
 export default DashboardContainer;
