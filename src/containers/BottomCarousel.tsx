@@ -1,43 +1,98 @@
-import { Carousel, Space } from 'antd';
+import { Carousel, Rate, Space } from 'antd';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from './Dashboard';
 
-const StyledCarousel = styled(Carousel)``;
-const StyledImg = styled.img`
-  height: 160px;
-  color: #fff;
-  line-height: 160px;
-  text-align: center;
+const Content = styled.section`
+  padding: 0 2.1rem;
 `;
-
+const TopTitle = styled.p`
+  font-size: 25px;
+`;
+const StyledCarousel = styled(Carousel)`
+  .slick-dots-bottom {
+    width: 100%;
+    margin: 0 0 -1.8em 0;
+    justify-content: flex-end;
+  }
+  .slick-dots li.slick-active button {
+    background: linear-gradient(#e00000, #a10000);
+    height: 7px;
+    width: 150%;
+    border-radius: 10px;
+  }
+  .slick-dots li {
+    margin-right: 1rem;
+  }
+  .slick-dots li button {
+    height: 7px;
+    width: 130%;
+    border-radius: 10px;
+    background-color: gray;
+  }
+`;
 const Slide = styled.div`
-  width: 100%;
+  width: 10rem;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.4489146000196954) 0%,
+      rgba(0, 0, 0, 0.1491947120645133) 25%,
+      rgba(0, 0, 0, 0) 50%,
+      rgba(0, 0, 0, 0.15479695296087181) 75%,
+      rgba(0, 0, 0, 0.4489146000196954) 100%
+    ),
+    ${(props) => `url(${props.resource})`};
+  background-size: cover;
+  background-position: center;
+  height: 14rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5rem;
 `;
 const StyledSpace = styled(Space)`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+`;
+
+const FilmTitle = styled.p`
+  font-weight: bold;
+`;
+const RateBox = styled.div`
+  display: flex;
+`;
+const StyledRate = styled(Rate)`
+  font-size: 13px;
+  margin-right: 0.3rem;
 `;
 const BottomCarouselContainer: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => {
   const slidesCount = Math.ceil(movies.length / 5);
 
   return (
-    <StyledCarousel autoplay>
-      {Array(slidesCount)
-        .fill(0)
-        .map((el, i) => (
-          <div key={`slide_${Date.now()}`}>
-            <StyledSpace>
-              {movies.slice(i * 5, (i + 1) * 5).map(({ image, id }) => (
-                <Slide key={id}>
-                  <StyledImg src={image} alt="blabla" />
-                </Slide>
-              ))}
-            </StyledSpace>
-          </div>
-        ))}
-    </StyledCarousel>
+    <Content>
+      <TopTitle>Now Playing</TopTitle>
+      <StyledCarousel autoplay dotPosition="bottom">
+        {Array(slidesCount)
+          .fill(0)
+          .map((el, i) => (
+            <div key={`slide_${Date.now()}`}>
+              <StyledSpace>
+                {movies.slice(i * 5, (i + 1) * 5).map(({ image, id, title, imDbRating }) => (
+                  <Slide resource={image.replace(/._.+\./, () => '._UX1000.')} key={id}>
+                    <FilmTitle>{title}</FilmTitle>
+                    <RateBox>
+                      <StyledRate disabled count={1} defaultValue={Number(imDbRating) / 2} />
+                      <div>{imDbRating}</div>
+                    </RateBox>
+                  </Slide>
+                ))}
+              </StyledSpace>
+            </div>
+          ))}
+      </StyledCarousel>
+    </Content>
   );
 };
 
