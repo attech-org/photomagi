@@ -1,24 +1,40 @@
-import { Layout } from 'antd';
+import { Layout, Input } from 'antd';
 import styled from 'styled-components';
 
+import ResponsiveHeader from './ResponsiveHeader';
 import Sidebar from './Sidebar';
 
-const StyledMain = styled.main`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  justify-content: space-between;
-  height: calc(100vh - 100px);
+const { Search } = Input;
+
+const StyledHeader = styled(Layout.Header)`
+  padding: 1rem;
+  @media screen and (max-width: 576px) {
+    padding: 0.75rem 1rem;
+  }
 `;
 
-const LayoutWrapper: React.FunctionComponent = ({ children }) => (
-  <Layout hasSider>
-    <Sidebar />
-    <Layout.Content>
-      <StyledMain>{children}</StyledMain>
-    </Layout.Content>
-  </Layout>
-);
+const SearchResult = styled(Search)`
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+`;
+
+const LayoutWrapper: React.FunctionComponent = ({ children }) => {
+  const onSearch = (value: string) => console.log(value);
+
+  return (
+    <Layout>
+      <Sidebar />
+      <Layout>
+        <StyledHeader>
+          <SearchResult placeholder="Search By Movie..." onSearch={onSearch} style={{ width: 450 }} />
+          <ResponsiveHeader />
+        </StyledHeader>
+        <Layout.Content>{children}</Layout.Content>
+        <Layout.Footer>Footer</Layout.Footer>
+      </Layout>
+    </Layout>
+  );
+};
 
 export default LayoutWrapper;
