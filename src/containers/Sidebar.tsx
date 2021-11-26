@@ -26,6 +26,7 @@ const NormalSider = styled.div`
 
 const Sider = styled(Layout.Sider)`
   height: 100%;
+  min-height: 100vh;
 `;
 
 const Logo = styled.img`
