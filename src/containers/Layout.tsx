@@ -1,31 +1,36 @@
-import { Layout } from 'antd';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Layout, Input } from 'antd';
 import styled from 'styled-components';
 
-const StyledMain = styled.main`
-  height: calc(100vh - 100px);
+import ResponsiveHeader from './ResponsiveHeader';
+import Sidebar from './Sidebar';
+
+const { Search } = Input;
+
+const StyledHeader = styled(Layout.Header)`
+  padding: 1rem;
+  @media screen and (max-width: 576px) {
+    padding: 0.75rem 1rem;
+  }
 `;
 
-const LayoutWrapper: React.FunctionComponent = ({ children }) => {
-  const [isCollapsed, onCollapsedChange] = useState(false);
-  return (
-    <Layout>
-      <Layout.Sider
-        breakpoint="md"
-        collapsible
-        collapsed={isCollapsed}
-        onCollapse={onCollapsedChange}
-      >
-        <Link to="/">Landing page</Link>
-        <Link to="/dashboard">Dashboard</Link>
-      </Layout.Sider>
+const SearchResult = styled(Search)`
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+`;
 
-      <Layout.Content>
-        <StyledMain>{children}</StyledMain>
-      </Layout.Content>
+const LayoutWrapper: React.FunctionComponent = ({ children }) => (
+  <Layout>
+    <Sidebar />
+    <Layout>
+      <StyledHeader>
+        <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
+        <ResponsiveHeader />
+      </StyledHeader>
+      <Layout.Content>{children}</Layout.Content>
+      <Layout.Footer>Footer</Layout.Footer>
     </Layout>
-  );
-};
+  </Layout>
+);
 
 export default LayoutWrapper;
