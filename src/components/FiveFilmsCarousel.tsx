@@ -83,7 +83,7 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
     <Content>
       <TopTitle>Now Playing {!movies.length && <Spin indicator={antIcon} />}</TopTitle>
 
-      <StyledCarousel dotPosition="bottom">
+      <StyledCarousel autoplay dotPosition="bottom">
         {Array(slidesCount)
           .fill(0)
           .map((el, i) => (
