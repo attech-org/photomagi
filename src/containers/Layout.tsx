@@ -7,7 +7,9 @@ import Sidebar from './Sidebar';
 const { Search } = Input;
 
 const StyledHeader = styled(Layout.Header)`
-  padding: 1rem;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
   @media screen and (max-width: 576px) {
     padding: 0.75rem 1rem;
   }
@@ -19,6 +21,8 @@ const SearchResult = styled(Search)`
   }
 `;
 
+const Content = styled(Layout.Content)``;
+
 const LayoutWrapper: React.FunctionComponent = ({ children }) => (
   <Layout>
     <Sidebar />
@@ -27,7 +31,7 @@ const LayoutWrapper: React.FunctionComponent = ({ children }) => (
         <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
         <ResponsiveHeader />
       </StyledHeader>
-      <Layout.Content>{children}</Layout.Content>
+      <Content>{children}</Content>
       <Layout.Footer>Footer</Layout.Footer>
     </Layout>
   </Layout>

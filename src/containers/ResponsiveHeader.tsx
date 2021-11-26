@@ -9,7 +9,7 @@ import {
   StarFilled,
   SwapOutlined,
 } from '@ant-design/icons';
-import { Divider, Input, Menu, Row } from 'antd';
+import { Badge, Divider, Input, Menu, Row } from 'antd';
 import { slide as BurgerMenu } from 'react-burger-menu';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -127,36 +127,52 @@ const ResponsiveHeader = () => (
           <LinkItem to="/dashboard">Dashboard</LinkItem>
         </Item>
         <Line />
-        <Item key="/recent" icon={<SwapOutlined />}>
-          <LinkItem to="/recent">Recent</LinkItem>
+        <Item key="/recent" icon={<SwapOutlined />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/recent">Recent</LinkItem>
+          </Badge>
         </Item>
         <Line />
-        <Item key="/discovery" icon={<FolderViewOutlined />}>
-          <LinkItem to="/discovery">Discovery</LinkItem>
+        <Item key="/discovery" icon={<FolderViewOutlined />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/discovery">Discovery</LinkItem>
+          </Badge>
         </Item>
         <Line />
-        <Item key="/coming-soon" icon={<DingtalkSquareFilled />}>
-          <LinkItem to="/coming-soon">Coming Soon</LinkItem>
+        <Item key="/coming-soon" icon={<DingtalkSquareFilled />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/coming-soon">Coming Soon</LinkItem>
+          </Badge>
         </Item>
         <Line />
-        <Item key="/tv-show" icon={<PlayCircleFilled />}>
-          <LinkItem to="/tv-show">Tv Show</LinkItem>
+        <Item key="/tv-show" icon={<PlayCircleFilled />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/tv-show">Tv Show</LinkItem>
+          </Badge>
         </Item>
         <Line />
-        <Item key="/library" icon={<DatabaseFilled />}>
-          <LinkItem to="/library">Library</LinkItem>
+        <Item key="/library" icon={<DatabaseFilled />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/library">Library</LinkItem>
+          </Badge>
         </Item>
         <Line />
-        <Item key="/my-list" icon={<StarFilled />}>
-          <LinkItem to="/my-list">My List</LinkItem>
+        <Item key="/my-list" icon={<StarFilled />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/my-list">My List</LinkItem>
+          </Badge>
         </Item>
         <Line />
-        <Item key="/settings" icon={<SettingFilled />}>
-          <LinkItem to="/settings">Settings</LinkItem>
+        <Item key="/settings" icon={<SettingFilled />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/settings">Settings</LinkItem>
+          </Badge>
         </Item>
         <Line />
-        <Item key="/dashboard" icon={<LogoutOutlined />}>
-          <LinkItem to="/dashboard">Log Out</LinkItem>
+        <Item key="/dashboard" icon={<LogoutOutlined />} disabled title="coming soon">
+          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+            <LinkItem to="/dashboard">Log Out</LinkItem>
+          </Badge>
         </Item>
       </StyledMenu>
     </BurgerMenu>

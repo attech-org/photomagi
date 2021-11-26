@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { CarouselContainerProps } from '../containers/Dashboard';
 
 const Content = styled.div`
-  padding-top: 15px;
+  padding-top: 2rem;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -14,8 +14,8 @@ const Wrapper = styled.div`
 `;
 
 const BoxTitle = styled.h3`
-  font-size: 22px;
-  line-height: 2em;
+  font-size: 180%;
+  line-height: 1;
 `;
 
 const FilmTitle = styled.p`

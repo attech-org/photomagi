@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { CarouselContainerProps } from '../containers/Dashboard';
 
 const Content = styled.section`
-  padding: 0 2.1rem;
+  padding: 0 2rem;
 `;
 const TopTitle = styled.p`
-  font-size: 25px;
+  font-size: 180%;
 `;
 const StyledCarousel = styled(Carousel)`
   padding-bottom: 2rem;
@@ -30,9 +30,14 @@ const StyledCarousel = styled(Carousel)`
     border-radius: 10px;
     background-color: gray;
   }
+  .ant-space-item {
+    flex: 1 0 10rem;
+    min-width: 10rem;
+    min-height: 14rem;
+    display: flex;
+  }
 `;
-const Slide = styled.div`
-  width: 10rem;
+const MovieCard = styled.div`
   background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.61) 0%,
@@ -44,12 +49,18 @@ const Slide = styled.div`
     ${(props) => `url(${props.resource})`};
   background-size: cover;
   background-position: center;
-  height: 14rem;
+  width: 100%;
+  min-height: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0.5rem;
+`;
+
+const SlideContent = styled(Space)`
+  width: 100%;
+  justify-content: space-between;
 `;
 
 const FilmTitle = styled.p`
@@ -72,22 +83,22 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
     <Content>
       <TopTitle>Now Playing {!movies.length && <Spin indicator={antIcon} />}</TopTitle>
 
-      <StyledCarousel autoplay dotPosition="bottom">
+      <StyledCarousel dotPosition="bottom">
         {Array(slidesCount)
           .fill(0)
           .map((el, i) => (
             <div key={`slide_${Date.now()}`}>
-              <Space size={44}>
+              <SlideContent>
                 {movies.slice(i * 5, (i + 1) * 5).map(({ image, id, title, imDbRating }) => (
-                  <Slide resource={image.replace(/._.+\./, () => '._UX1000.')} key={id}>
+                  <MovieCard resource={image.replace(/._.+\./, () => '._UX1000.')} key={id}>
                     <FilmTitle>{title}</FilmTitle>
                     <RateBox>
                       <StyledRate disabled count={1} defaultValue={Number(imDbRating) / 2} />
                       <div>{imDbRating}</div>
                     </RateBox>
-                  </Slide>
+                  </MovieCard>
                 ))}
-              </Space>
+              </SlideContent>
             </div>
           ))}
       </StyledCarousel>

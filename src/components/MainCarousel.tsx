@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { CarouselContainerProps } from '../containers/Dashboard';
 
 const Main = styled.div`
-  padding: 2.1rem;
+  padding: 2rem;
 `;
 const Wrapper = styled.div`
   background-image: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.7)),
@@ -30,7 +30,7 @@ const StyledCarousel = styled(Carousel)`
   align-items: center;
   justify-content: center;
   .slick-list {
-    box-shadow: 0px 0px 92px 6px rgba(201, 201, 201, 0.308);
+    box-shadow: 0px 0px 40px rgba(201, 201, 201, 0.308);
     border-radius: 5px;
   }
   .slick-dots-bottom {

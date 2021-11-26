@@ -1,9 +1,8 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import ComingSoonPage from './pages/ComingSoon';
 import DashboardPage from './pages/Dashboard';
 import DiscoveryPage from './pages/Discovery';
-import LandingPage from './pages/Landing';
 import LibraryPage from './pages/Library';
 import MyListPage from './pages/MyList';
 import RecentPage from './pages/Recent';
@@ -14,7 +13,7 @@ const App: React.FunctionComponent = () => (
   <Router>
     <Switch>
       <Route path="/" exact>
-        <LandingPage />
+        <Redirect to="/dashboard" />
       </Route>
       <Route path="/dashboard">
         <DashboardPage />
