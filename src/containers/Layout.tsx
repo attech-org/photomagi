@@ -19,22 +19,18 @@ const SearchResult = styled(Search)`
   }
 `;
 
-const LayoutWrapper: React.FunctionComponent = ({ children }) => {
-  const onSearch = (value: string) => console.log(value);
-
-  return (
+const LayoutWrapper: React.FunctionComponent = ({ children }) => (
+  <Layout>
+    <Sidebar />
     <Layout>
-      <Sidebar />
-      <Layout>
-        <StyledHeader>
-          <SearchResult placeholder="Search By Movie..." onSearch={onSearch} style={{ width: 450 }} />
-          <ResponsiveHeader />
-        </StyledHeader>
-        <Layout.Content>{children}</Layout.Content>
-        <Layout.Footer>Footer</Layout.Footer>
-      </Layout>
+      <StyledHeader>
+        <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
+        <ResponsiveHeader />
+      </StyledHeader>
+      <Layout.Content>{children}</Layout.Content>
+      <Layout.Footer>Footer</Layout.Footer>
     </Layout>
-  );
-};
+  </Layout>
+);
 
 export default LayoutWrapper;

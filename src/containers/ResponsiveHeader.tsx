@@ -29,9 +29,9 @@ const RowWrap = styled(Row)`
 const Logo = styled.img`
   display: block;
   width: 32px;
-    &:hover {
-      opacity: .75;
-    }
+  &:hover {
+    opacity: 0.75;
+  }
 `;
 
 const SearchResult = styled(Search)`
@@ -115,61 +115,52 @@ const LinkItem = styled(Link)`
   }
 `;
 
-const ResponsiveHeader = () => {
-  const onSearch = (value: string) => console.log(value);
-
-  return (
-    <RowWrap align="middle" justify="space-between">
-      <Link to="/">
-        <Logo src={logo} />
-      </Link>
-      <SearchResult placeholder="Search By Movie..." onSearch={onSearch} />
-      <BurgerMenu styles={styles} right>
-        <StyledMenu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-          theme="dark"
-        >
-          <Item key="/dashboard" icon={<AppstoreFilled />}>
-            <LinkItem to="/dashboard">Dashboard</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/recent" icon={<SwapOutlined />}>
-            <LinkItem to="/recent">Recent</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/discovery" icon={<FolderViewOutlined />}>
-            <LinkItem to="/discovery">Discovery</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/coming-soon" icon={<DingtalkSquareFilled />}>
-            <LinkItem to="/coming-soon">Coming Soon</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/tv-show" icon={<PlayCircleFilled />}>
-            <LinkItem to="/tv-show">Tv Show</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/library" icon={<DatabaseFilled />}>
-            <LinkItem to="/library">Library</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/my-list" icon={<StarFilled />}>
-            <LinkItem to="/my-list">My List</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/settings" icon={<SettingFilled />}>
-            <LinkItem to="/settings">Settings</LinkItem>
-          </Item>
-          <Line />
-          <Item key="/dashboard" icon={<LogoutOutlined />}>
-            <LinkItem to="/dashboard">Log Out</LinkItem>
-          </Item>
-        </StyledMenu>
-      </BurgerMenu>
-    </RowWrap>
-  );
-};
+const ResponsiveHeader = () => (
+  <RowWrap align="middle" justify="space-between">
+    <Link to="/">
+      <Logo src={logo} />
+    </Link>
+    <SearchResult placeholder="Search By Movie..." />
+    <BurgerMenu styles={styles} right>
+      <StyledMenu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" theme="dark">
+        <Item key="/dashboard" icon={<AppstoreFilled />}>
+          <LinkItem to="/dashboard">Dashboard</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/recent" icon={<SwapOutlined />}>
+          <LinkItem to="/recent">Recent</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/discovery" icon={<FolderViewOutlined />}>
+          <LinkItem to="/discovery">Discovery</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/coming-soon" icon={<DingtalkSquareFilled />}>
+          <LinkItem to="/coming-soon">Coming Soon</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/tv-show" icon={<PlayCircleFilled />}>
+          <LinkItem to="/tv-show">Tv Show</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/library" icon={<DatabaseFilled />}>
+          <LinkItem to="/library">Library</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/my-list" icon={<StarFilled />}>
+          <LinkItem to="/my-list">My List</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/settings" icon={<SettingFilled />}>
+          <LinkItem to="/settings">Settings</LinkItem>
+        </Item>
+        <Line />
+        <Item key="/dashboard" icon={<LogoutOutlined />}>
+          <LinkItem to="/dashboard">Log Out</LinkItem>
+        </Item>
+      </StyledMenu>
+    </BurgerMenu>
+  </RowWrap>
+);
 
 export default ResponsiveHeader;
