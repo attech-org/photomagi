@@ -1,8 +1,8 @@
-export interface Top250Movies {
+export type MoviesResponse<T> = {
   errorMessage: string;
-  items: Movie[];
-}
-interface Movie {
+  items: T[];
+};
+export interface Movie {
   // max.haveSexWith(typeScript)
   crew: string;
   fullTitle: string;
@@ -14,12 +14,10 @@ interface Movie {
   title: string;
   year: string;
 }
-
-export interface ComingSoon {
-  errorMessage: string;
-  items: ComingSoonItem[];
+export interface MostPopularMovie extends Movie {
+  rankUpDown: string;
 }
-interface ComingSoonItem {
+export interface ComingSoonItem {
   contentRating: string;
   directorList: ComingSoonDirectorList[];
   directors: string;

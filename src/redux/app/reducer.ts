@@ -1,25 +1,18 @@
+import { MostPopularMovie } from '../../services/types';
 import { AppActionTypes, AppActions } from './types';
 
-export interface Fighter {
-  attack: number;
-  defense: number;
-  health: number;
-  name: string;
-  source: string;
-}
-
 export interface AppStore {
-  fighters: Fighter[];
+  movies: MostPopularMovie[];
 }
 
 const initialStore: AppStore = {
-  fighters: [],
+  movies: [],
 };
 
 const app = (store = initialStore, action: AppActionTypes) => {
   switch (action.type) {
-    case AppActions.SET_FIGHTERS:
-      return { ...store, fighters: action.payload };
+    case AppActions.SET_MOVIES:
+      return { ...store, movies: action.payload };
     default:
       return store;
   }

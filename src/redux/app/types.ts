@@ -1,12 +1,12 @@
-import { Fighter } from './reducer';
+import { MostPopularMovie } from '../../services/types';
 
 export enum AppActions {
-  SET_FIGHTERS = 'SET_FIGHTERS',
+  SET_MOVIES = 'SET_MOVIES',
 }
 
-interface AddFightersAction {
-  type: AppActions.SET_FIGHTERS;
-  payload: Fighter[];
+interface SetMoviesDataAction {
+  type: AppActions.SET_MOVIES;
+  payload: MostPopularMovie[];
 }
 
-export type AppActionTypes = AddFightersAction;
+export type AppActionTypes = SetMoviesDataAction;

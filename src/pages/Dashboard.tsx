@@ -1,8 +1,9 @@
+import DashboardContainer from '../containers/Dashboard';
 import Layout from '../containers/Layout';
 
 const DashboardPage: React.FunctionComponent = () => (
   <Layout>
-    <div>Dashboard</div>;
+    <DashboardContainer />
   </Layout>
 );
 
