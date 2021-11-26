@@ -1,21 +1,40 @@
-import { Link } from 'react-router-dom';
+import { Layout, Input } from 'antd';
 import styled from 'styled-components';
 
-const StyledMain = styled.main`
+import ResponsiveHeader from './ResponsiveHeader';
+import Sidebar from './Sidebar';
+
+const { Search } = Input;
+
+const StyledHeader = styled(Layout.Header)`
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  justify-content: space-between;
-  height: calc(100vh - 100px);
+  background-color: transparent;
+  @media screen and (max-width: 576px) {
+    padding: 0.75rem 1rem;
+  }
 `;
 
-const Layout: React.FunctionComponent = ({ children }) => (
-  <>
-    <Link to="/">Landing page</Link>
-    <Link to="/dashboard">Dashboard</Link>
-    <StyledMain>{children}</StyledMain>
-  </>
+const SearchResult = styled(Search)`
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+`;
+
+const Content = styled(Layout.Content)``;
+
+const LayoutWrapper: React.FunctionComponent = ({ children }) => (
+  <Layout>
+    <Sidebar />
+    <Layout>
+      <StyledHeader>
+        <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
+        <ResponsiveHeader />
+      </StyledHeader>
+      <Content>{children}</Content>
+      <Layout.Footer>Footer</Layout.Footer>
+    </Layout>
+  </Layout>
 );
 
-export default Layout;
+export default LayoutWrapper;
