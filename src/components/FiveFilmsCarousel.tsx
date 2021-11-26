@@ -50,11 +50,6 @@ const Slide = styled.div`
   justify-content: space-between;
   padding: 0.5rem;
 `;
-const StyledSpace = styled(Space)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
 
 const FilmTitle = styled.p`
   font-weight: bold;
@@ -80,7 +75,7 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
           .fill(0)
           .map((el, i) => (
             <div key={`slide_${Date.now()}`}>
-              <StyledSpace>
+              <Space size={44}>
                 {movies.slice(i * 5, (i + 1) * 5).map(({ image, id, title, imDbRating }) => (
                   <Slide resource={image.replace(/._.+\./, () => '._UX1000.')} key={id}>
                     <FilmTitle>{title}</FilmTitle>
@@ -90,7 +85,7 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
                     </RateBox>
                   </Slide>
                 ))}
-              </StyledSpace>
+              </Space>
             </div>
           ))}
       </StyledCarousel>

@@ -2,13 +2,13 @@ import { Col, Row } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import FiveFilmsCarousel from '../components/FiveFilmsCarousel';
+import MainCarousel from '../components/MainCarousel';
+import SidePanel from '../components/SidePanel';
 import { loadMovies } from '../redux/app/actions';
 import { AppStore } from '../redux/app/reducer';
 import { RootStore } from '../redux/store';
 import { MostPopularMovie } from '../services/types';
-import BottomCarouselContainer from './BottomCarousel';
-import MainCarouselContainer from './MainCarousel';
-import RightPanelContainer from './RightPanel';
 
 export interface CarouselContainerProps {
   movies: MostPopularMovie[];
@@ -22,13 +22,13 @@ const DashboardContainer: React.FunctionComponent = () => {
   return (
     <Row>
       <Col span={19}>
-        <MainCarouselContainer movies={movies} />
+        <MainCarousel movies={movies} />
         <Col span={24}>
-          <BottomCarouselContainer movies={movies.slice(0, 20)} />
+          <FiveFilmsCarousel movies={movies.slice(0, 20)} />
         </Col>
       </Col>
       <Col span={4}>
-        <RightPanelContainer movies={movies} />
+        <SidePanel movies={movies} />
       </Col>
     </Row>
   );
