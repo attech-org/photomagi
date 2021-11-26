@@ -1,4 +1,5 @@
-import { Carousel, Rate, Space } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Carousel, Rate, Space, Spin } from 'antd';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
@@ -66,10 +67,11 @@ const StyledRate = styled(Rate)`
 
 const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => {
   const slidesCount = Math.ceil(movies.length / 5);
-
+  const antIcon = <LoadingOutlined style={{ color: 'red', fontSize: 24 }} spin />;
   return (
     <Content>
-      <TopTitle>Now Playing</TopTitle>
+      <TopTitle>Now Playing {!movies.length && <Spin indicator={antIcon} />}</TopTitle>
+
       <StyledCarousel autoplay dotPosition="bottom">
         {Array(slidesCount)
           .fill(0)

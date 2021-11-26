@@ -1,4 +1,5 @@
-import { Button, Carousel, Rate } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Carousel, Rate, Spin } from 'antd';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
@@ -68,31 +69,46 @@ const Btn = styled(Button)`
     background: linear-gradient(#ac0000, #960000) !important;
   }
 `;
+const SpinContainer = styled(Wrapper)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(128, 128, 128, 0.24);
+  border-radius: 5px;
+`;
 
-const MainCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => (
-  <Main>
-    <StyledCarousel dotPosition="bottom">
-      {movies
-        .map(({ imDbRating, title, image, id }) => (
-          <Wrapper resource={image.replace(/._.+\./, () => '._UX1000.')} key={id}>
-            <Content>
-              <Title>{title}</Title>
-              <StyledRate
-                tooltips={[imDbRating]}
-                disabled
-                allowHalf
-                count={5}
-                defaultValue={Number(imDbRating) / 2}
-              />
-              <Btn type="primary" size="middle" danger>
-                Watch now
-              </Btn>
-            </Content>
-          </Wrapper>
-        ))
-        .slice(0, 3)}
-    </StyledCarousel>
-  </Main>
-);
+const MainCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => {
+  const antIcon = <LoadingOutlined style={{ color: 'red', fontSize: 24 }} spin />;
+  return (
+    <Main>
+      {!movies.length && (
+        <SpinContainer>
+          <Spin indicator={antIcon} />
+        </SpinContainer>
+      )}
+      <StyledCarousel dotPosition="bottom">
+        {movies
+          .map(({ imDbRating, title, image, id }) => (
+            <Wrapper resource={image.replace(/._.+\./, () => '._UX1000.')} key={id}>
+              <Content>
+                <Title>{title}</Title>
+                <StyledRate
+                  tooltips={[imDbRating]}
+                  disabled
+                  allowHalf
+                  count={5}
+                  defaultValue={Number(imDbRating) / 2}
+                />
+                <Btn type="primary" size="middle" danger>
+                  Watch now
+                </Btn>
+              </Content>
+            </Wrapper>
+          ))
+          .slice(0, 3)}
+      </StyledCarousel>
+    </Main>
+  );
+};
 
 export default MainCarousel;

@@ -1,4 +1,5 @@
-import { Button, Rate } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Button, Rate, Spin } from 'antd';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
@@ -49,33 +50,38 @@ const Btn = styled(Button)`
     background: linear-gradient(#ac0000, #960000) !important;
   }
 `;
-const SidePanel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => (
-  <Content>
-    <BoxTitle>Popular Movie</BoxTitle>
-    {movies
-      .map(({ image, id, title, year, imDbRating }) => (
-        <Wrapper key={id}>
-          <Image src={image.replace(/._.+\./, () => '._UX1000.')} alt="blabla" />
-          <Info>
-            <FilmTitle>
-              {title}
-              <Year>{year}</Year>
-            </FilmTitle>
 
-            <StyledRate
-              tooltips={[imDbRating]}
-              disabled
-              allowHalf
-              count={5}
-              defaultValue={Number(imDbRating) / 2}
-            />
-            <Btn type="primary" size="middle" danger>
-              Watch now
-            </Btn>
-          </Info>
-        </Wrapper>
-      ))
-      .slice(3, 8)}
-  </Content>
-);
+const SidePanel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => {
+  const antIcon = <LoadingOutlined style={{ color: 'red', fontSize: 24 }} spin />;
+  return (
+    <Content>
+      <BoxTitle>Popular Movie {!movies.length && <Spin indicator={antIcon} />}</BoxTitle>
+
+      {movies
+        .map(({ image, id, title, year, imDbRating }) => (
+          <Wrapper key={id}>
+            <Image src={image.replace(/._.+\./, () => '._UX1000.')} alt="blabla" />
+            <Info>
+              <FilmTitle>
+                {title}
+                <Year>{year}</Year>
+              </FilmTitle>
+
+              <StyledRate
+                tooltips={[imDbRating]}
+                disabled
+                allowHalf
+                count={5}
+                defaultValue={Number(imDbRating) / 2}
+              />
+              <Btn type="primary" size="middle" danger>
+                Watch now
+              </Btn>
+            </Info>
+          </Wrapper>
+        ))
+        .slice(3, 8)}
+    </Content>
+  );
+};
 export default SidePanel;
