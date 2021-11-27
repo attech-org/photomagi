@@ -169,9 +169,9 @@ const ResponsiveHeader = () => (
           </Badge>
         </Item>
         <Line />
-        <Item key="/dashboard" icon={<LogoutOutlined />} disabled title="coming soon">
+        <Item key="/logout" icon={<LogoutOutlined />} disabled title="coming soon">
           <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/dashboard">Log Out</LinkItem>
+            <LinkItem to="/logout">Log Out</LinkItem>
           </Badge>
         </Item>
       </StyledMenu>
