@@ -21,8 +21,8 @@ export const setMovieTitle = (value: MovieTitle[]): AppActionTypes => ({
   payload: value,
 });
 
-export const loadMovieTitle = () => async (dispatch: Dispatch<AppActionTypes>) => {
-  const data = await movieTitle();
+export const loadMovieTitle = (id: string) => async (dispatch: Dispatch<AppActionTypes>) => {
+  const data = await movieTitle(id);
   if (data) {
     dispatch(setMovieTitle(data));
   }

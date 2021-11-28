@@ -54,14 +54,10 @@ export const mostPopularMovies = async () => {
   }
 };
 
-export const movieTitle = async () => {
+export const movieTitle = async (id: string) => {
   try {
-    const res = await moviesApi.get<MovieTitle>(`Title/${process.env.REACT_APP_API_KEY}`);
-    if (res.data.errorMessage) {
-      throw new Error(res.data.errorMessage);
-    } else {
-      return res.data;
-    }
+    const res = await moviesApi.get<MovieTitle[]>(`Title/${process.env.REACT_APP_API_KEY}/${id}`);
+    return res.data;
   } catch (e) {
     console.warn(e);
     return false;
