@@ -1,7 +1,8 @@
-import { MostPopularMovie } from '../../services/types';
+import { MostPopularMovie, MovieTitle } from '../../services/types';
 
 export enum AppActions {
   SET_MOVIES = 'SET_MOVIES',
+  SET_MOVIE_TITLE = 'SET_MOVIE_TITLE',
 }
 
 interface SetMoviesDataAction {
@@ -9,4 +10,9 @@ interface SetMoviesDataAction {
   payload: MostPopularMovie[];
 }
 
-export type AppActionTypes = SetMoviesDataAction;
+interface SetMovieTitleAction {
+  type: AppActions.SET_MOVIE_TITLE;
+  payload: MovieTitle[];
+}
+
+export type AppActionTypes = SetMoviesDataAction | SetMovieTitleAction;

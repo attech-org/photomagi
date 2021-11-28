@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 
-import { mostPopularMovies } from '../../services/api';
-import { MostPopularMovie } from '../../services/types';
+import { mostPopularMovies, movieTitle } from '../../services/api';
+import { MostPopularMovie, MovieTitle } from '../../services/types';
 import { AppActionTypes, AppActions } from './types';
 
 export const setPopularMovies = (value: MostPopularMovie[]): AppActionTypes => ({
@@ -13,5 +13,17 @@ export const loadMovies = () => async (dispatch: Dispatch<AppActionTypes>) => {
   const data = await mostPopularMovies();
   if (data) {
     dispatch(setPopularMovies(data));
+  }
+};
+
+export const setMovieTitle = (value: MovieTitle[]): AppActionTypes => ({
+  type: AppActions.SET_MOVIE_TITLE,
+  payload: value,
+});
+
+export const loadMovieTitle = () => async (dispatch: Dispatch<AppActionTypes>) => {
+  const data = await movieTitle();
+  if (data) {
+    dispatch(setMovieTitle(data));
   }
 };

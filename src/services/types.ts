@@ -48,3 +48,80 @@ interface ComingSoonOtherList {
   key: string;
   value: string;
 }
+
+export interface MovieTitle {
+  actorList: ActorList[];
+  awards: string;
+  boxOffice: BoxOffice;
+  companies: string;
+  companyList: ComingSoonDirectorList[];
+  contentRating: string;
+  countries: string;
+  countryList: ComingSoonOtherList[];
+  directorList: ComingSoonDirectorList[];
+  directors: string;
+  errorMessage: string;
+  fullCast?: string;
+  fullTitle: string;
+  genreList: ComingSoonDirectorList[];
+  genres: string;
+  id: string;
+  imDbRating: string;
+  imDbRatingVotes: string;
+  image: string;
+  images?: string;
+  keywordList: string[];
+  keywords: string;
+  languageList: ComingSoonOtherList[];
+  languages: string;
+  metacriticRating: string;
+  originalTitle: string;
+  plot: string;
+  plotLocal: string;
+  plotLocalIsRtl: boolean;
+  posters?: string;
+  ratings?: string;
+  releaseDate: string;
+  runtimeMins: string;
+  runtimeStr: string;
+  similars: Similars[];
+  starList: ComingSoonDirectorList[];
+  stars: string;
+  tagline: string;
+  title: string;
+  trailer?: string;
+  tvEpisodeInfo?: string;
+  tvSeriesInfo?: string;
+  type: string;
+  wikipedia?: string;
+  writerList: ComingSoonDirectorList[];
+  writers: string;
+  year: string;
+}
+
+interface ActorList {
+  asCharacter: string;
+  id: string;
+  image: string;
+  name: string;
+}
+
+interface BoxOffice {
+  budget: string;
+  cumulativeWorldwideGross: string;
+  grossUSA: string;
+  openingWeekendUSA: string;
+}
+
+interface Similars {
+  directors: string;
+  fullTitle: string;
+  genres: string;
+  id: string;
+  imDbRating: string;
+  image: string;
+  plot: string;
+  stars: string;
+  title: string;
+  year: string;
+}
