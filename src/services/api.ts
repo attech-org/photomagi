@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ComingSoonItem, MostPopularMovie, Movie, MoviesResponse, MovieTitle } from './types';
+import { ComingSoonItem, MostPopularMovie, Movie, MoviesResponse, SingleMovie } from './types';
 
 const moviesApi = axios.create({
   baseURL: 'https://imdb-api.com/en/API/',
@@ -54,9 +54,11 @@ export const mostPopularMovies = async () => {
   }
 };
 
-export const movieTitle = async (id: string) => {
+export const singleMovie = async (id: string) => {
   try {
-    const res = await moviesApi.get<MovieTitle[]>(`Title/${process.env.REACT_APP_API_KEY}/${id}`);
+    const res = await moviesApi.get<SingleMovie>(
+      `Title/${process.env.REACT_APP_API_KEY}/${id}/FullActor,Images,Trailer`,
+    );
     return res.data;
   } catch (e) {
     console.warn(e);

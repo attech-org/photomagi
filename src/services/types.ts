@@ -49,7 +49,7 @@ interface ComingSoonOtherList {
   value: string;
 }
 
-export interface MovieTitle {
+export interface SingleMovie {
   actorList: ActorList[];
   awards: string;
   boxOffice: BoxOffice;

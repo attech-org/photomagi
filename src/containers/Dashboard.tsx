@@ -19,6 +19,7 @@ const DashboardContainer: React.FunctionComponent = () => {
   useEffect(() => {
     dispatch(loadMovies());
   }, []);
+  console.log(movies);
   return (
     <Row>
       <Col span={19}>
