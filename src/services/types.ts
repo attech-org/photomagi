@@ -79,7 +79,7 @@ export interface SingleMovie {
   plot: string;
   plotLocal: string;
   plotLocalIsRtl: boolean;
-  posters?: string;
+  posters?: { posters: Poster[] };
   ratings?: string;
   releaseDate: string;
   runtimeMins: string;
@@ -124,4 +124,9 @@ interface Similars {
   stars: string;
   title: string;
   year: string;
+}
+
+interface Poster {
+  id: string;
+  link: string;
 }
