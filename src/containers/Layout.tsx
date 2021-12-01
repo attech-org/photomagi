@@ -14,6 +14,7 @@ import { auth } from '../firebase/firebase-config';
 import ResponsiveHeader from './ResponsiveHeader';
 import Sidebar from './Sidebar';
 
+const { Content } = Layout;
 const { Search } = Input;
 const { Text } = Typography;
 
@@ -33,7 +34,7 @@ const SearchResult = styled(Search)`
   }
 `;
 
-const SignButton = styled(Button)`
+const RegisterButton = styled(Button)`
   background-color: #1f1f1f;
   border: none;
   &:hover {
@@ -49,11 +50,9 @@ const LoginButton = styled(Button)`
   }
 `;
 
-const Content = styled(Layout.Content)``;
-
 const LogInModal = styled(Modal)``;
 
-const SignInModal = styled(Modal)``;
+const RegisterModal = styled(Modal)``;
 
 const LayoutWrapper: React.FC = ({ children }) => {
   // Modal Form Visible State
@@ -142,9 +141,9 @@ const LayoutWrapper: React.FC = ({ children }) => {
                 Log In
               </LoginButton>
               <Divider type="vertical" />
-              <SignButton type="primary" onClick={showModalRegister}>
+              <RegisterButton type="primary" onClick={showModalRegister}>
                 Register
-              </SignButton>
+              </RegisterButton>
               <LogInModal
                 title="Log In"
                 visible={visibleLogin}
@@ -180,7 +179,7 @@ const LayoutWrapper: React.FC = ({ children }) => {
                   </Form.Item>
                 </Form>
               </LogInModal>
-              <SignInModal
+              <RegisterModal
                 title="Sign In"
                 visible={visibleRegister}
                 onCancel={handleCancelRegister}
@@ -215,7 +214,7 @@ const LayoutWrapper: React.FC = ({ children }) => {
                     </Button>
                   </Form.Item>
                 </Form>
-              </SignInModal>
+              </RegisterModal>
             </div>
           )}
           <ResponsiveHeader />
