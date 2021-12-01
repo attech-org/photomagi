@@ -69,7 +69,7 @@ export interface SingleMovie {
   imDbRating: string;
   imDbRatingVotes: string;
   image: string;
-  images?: string;
+  images?: Images;
   keywordList: string[];
   keywords: string;
   languageList: ComingSoonOtherList[];
@@ -129,4 +129,13 @@ interface Similars {
 interface Poster {
   id: string;
   link: string;
+}
+
+interface Images {
+  imDbid: string;
+  items: ItemImage[];
+}
+
+interface ItemImage {
+  image: string;
 }

@@ -57,7 +57,7 @@ export const mostPopularMovies = async () => {
 export const singleMovie = async (id: string) => {
   try {
     const res = await moviesApi.get<SingleMovie>(
-      `Title/${process.env.REACT_APP_API_KEY}/${id}/FullActor,Posters,Trailer`,
+      `Title/${process.env.REACT_APP_API_KEY}/${id}/FullActor,Posters,Trailer,Images`,
     );
     return res.data;
   } catch (e) {

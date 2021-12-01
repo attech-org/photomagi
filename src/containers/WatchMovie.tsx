@@ -1,5 +1,4 @@
-import { CaretRightOutlined } from '@ant-design/icons';
-import { Button, Col, Row, Space, Tag } from 'antd';
+import { Button, Col, Row, Space, Tag, Typography, Image } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -7,7 +6,7 @@ import MovieCard from '../components/MovieCard';
 import { SingleMovie } from '../services/types';
 
 const Wrapper = styled.div`
-  background-image: linear-gradient(rgba(0, 0, 0, 0.233) 0%, rgb(0, 0, 0)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.425) 0%, rgb(0, 0, 0)),
     ${(props) => `url(${props.resource})`};
   background-position: top center;
   background-size: cover;
@@ -32,6 +31,14 @@ const InfoItem = styled.p`
   text-transform: uppercase;
   margin: 0 1em;
 `;
+
+// const Imgage = styled.div`
+//   background-image: ${(props) => `url(${props.resource})`};
+//   background-position: top center;
+//   background-size: cover;
+//   padding: 5.5em 4em;
+//   border-radius: 5px;
+// `;
 const AfterTitleSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,12 +46,12 @@ const AfterTitleSection = styled.div`
   margin-bottom: 6em;
 `;
 
-const Title = styled.h1`
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: bold;
-  font-size: 35px;
-`;
+// const Title = styled.h1`
+//   text-transform: uppercase;
+//   text-align: center;
+//   font-weight: bold;
+//   font-size: 35px;
+// `;
 
 // const Word = styled.p`
 //   border: 1px solid gray;
@@ -54,23 +61,25 @@ const Title = styled.h1`
 //   margin-right: 0.5em;
 // `;
 
-const Keywords = styled.p`
+const Keywords = styled.div`
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  font-size: 12px;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
 `;
+
 const Plot = styled.p``;
 const BtnBox = styled.div`
   display: flex;
   align-items: center;
 `;
-const WatchNow = styled.p`
-  margin: 0 0.5em;
-`;
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: white;
+const Btn = styled(Button)`
+  background: linear-gradient(#e00000, #a10000) !important;
+  border: none;
+  width: 100px;
+  &:hover {
+    background: linear-gradient(#ac0000, #960000) !important;
+  }
 `;
 
 const Similar = styled.p`
@@ -87,9 +96,7 @@ interface WatchMovieProps {
 }
 
 const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleMovie }) => {
-  const keywords = singleMovie?.keywords
-    .split(',')
-    .map((word) => <Tag key={singleMovie.id}>{word}</Tag>);
+  const { Title } = Typography;
   return (
     <Wrapper resource={singleMovie?.posters?.posters[1].link}>
       <BeforeTitleSection>
@@ -98,21 +105,38 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
           <InfoItem>{singleMovie?.runtimeStr}</InfoItem>
           <InfoItem>{singleMovie?.year}</InfoItem>
         </TopInfo>
-        <Title>{singleMovie?.title}</Title>
+        <Title style={{ textAlign: 'center' }} level={1}>
+          {singleMovie?.title}
+        </Title>
       </BeforeTitleSection>
 
       <AfterTitleSection>
         <Row>
           <Col span={12}>
-            <Keywords>{keywords}</Keywords>
+            <Keywords>
+              {singleMovie?.keywords.split(',').map((word) => (
+                <Tag key={singleMovie.id}>{word}</Tag>
+              ))}
+            </Keywords>
             <Plot>{singleMovie?.plot}</Plot>
             <BtnBox>
-              <WatchNow>Watch Now</WatchNow>
-              <StyledLink to="/">
-                <Button shape="circle" size="large" icon={<CaretRightOutlined />} />
-              </StyledLink>
+              <Link to="/">
+                <Btn type="primary" size="middle" danger>
+                  Watch now
+                </Btn>
+              </Link>
             </BtnBox>
           </Col>
+          <Row gutter={[0, 16]}>
+            {singleMovie?.images?.items
+              .map(({ image }) => (
+                <Col key={singleMovie.images?.imDbid} span={10}>
+                  {' '}
+                  <Image width={100} src={image} />
+                </Col>
+              ))
+              .slice(0, 4)}{' '}
+          </Row>
         </Row>
       </AfterTitleSection>
       <Similar>Similar:</Similar>
