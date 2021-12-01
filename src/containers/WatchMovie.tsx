@@ -1,4 +1,5 @@
 import { Button, Col, Row, Space, Tag, Typography, Image } from 'antd';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -90,6 +91,10 @@ const Similar = styled.p`
 const SlideContent = styled(Space)`
   width: 100%;
 `;
+const StyledImage = styled(Image)`
+  width: calc(100% - 0.5rem * 2);
+  margin: 0.25rem 0.5rem;
+`;
 
 interface WatchMovieProps {
   singleMovie?: SingleMovie;
@@ -101,9 +106,21 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
     <Wrapper resource={singleMovie?.posters?.posters[1].link}>
       <BeforeTitleSection>
         <TopInfo>
-          <InfoItem>{singleMovie?.type}</InfoItem>
-          <InfoItem>{singleMovie?.runtimeStr}</InfoItem>
-          <InfoItem>{singleMovie?.year}</InfoItem>
+          <InfoItem>
+            <i className="bi bi-camera-reels"> {singleMovie?.type}</i>
+          </InfoItem>
+
+          <InfoItem>
+            {singleMovie?.runtimeMins !== '' ? (
+              <i className="bi bi-stopwatch"> {singleMovie?.runtimeStr}</i>
+            ) : (
+              <div />
+            )}
+          </InfoItem>
+
+          <InfoItem>
+            <i className="bi bi-calendar2"> {singleMovie?.year}</i>
+          </InfoItem>
         </TopInfo>
         <Title style={{ textAlign: 'center' }} level={1}>
           {singleMovie?.title}
@@ -111,7 +128,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
       </BeforeTitleSection>
 
       <AfterTitleSection>
-        <Row>
+        <Row gutter={[24, 24]}>
           <Col span={12}>
             <Keywords>
               {singleMovie?.keywords.split(',').map((word) => (
@@ -127,16 +144,11 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
               </Link>
             </BtnBox>
           </Col>
-          <Row gutter={[0, 16]}>
-            {singleMovie?.images?.items
-              .map(({ image }) => (
-                <Col key={singleMovie.images?.imDbid} span={10}>
-                  {' '}
-                  <Image width={100} src={image} />
-                </Col>
-              ))
-              .slice(0, 4)}{' '}
-          </Row>
+          <Col span={12}>
+            {singleMovie?.images?.items.slice(0, 4).map(({ image }) => (
+              <StyledImage width="50%" src={image} key={singleMovie.images?.imDbid} />
+            ))}
+          </Col>
         </Row>
       </AfterTitleSection>
       <Similar>Similar:</Similar>
