@@ -1,8 +1,9 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Carousel, Rate, Space, Spin } from 'antd';
+import { Carousel, Space, Spin } from 'antd';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
+import MovieCard from './MovieCard';
 
 const Content = styled.section`
   padding: 0 2rem;
@@ -37,43 +38,10 @@ const StyledCarousel = styled(Carousel)`
     display: flex;
   }
 `;
-const MovieCard = styled.div`
-  background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.61) 0%,
-      rgba(0, 0, 0, 0.14) 25%,
-      rgba(0, 0, 0, 0) 50%,
-      rgba(0, 0, 0, 0.15) 65%,
-      rgba(0, 0, 0, 0.6) 100%
-    ),
-    ${(props) => `url(${props.resource})`};
-  background-size: cover;
-  background-position: center;
-  width: 100%;
-  min-height: 100%;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0.5rem;
-`;
 
 const SlideContent = styled(Space)`
   width: 100%;
   justify-content: space-between;
-`;
-
-const FilmTitle = styled.p`
-  font-weight: bold;
-  line-height: 1.15em;
-  color: #f5f5f5;
-`;
-const RateBox = styled.div`
-  display: flex;
-`;
-const StyledRate = styled(Rate)`
-  font-size: 13px;
-  margin-right: 0.3rem;
 `;
 
 const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => {
@@ -90,13 +58,7 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
             <div key={`slide_${Date.now()}`}>
               <SlideContent>
                 {movies.slice(i * 5, (i + 1) * 5).map(({ image, id, title, imDbRating }) => (
-                  <MovieCard resource={image.replace(/._.+\./, () => '._UX1000.')} key={id}>
-                    <FilmTitle>{title}</FilmTitle>
-                    <RateBox>
-                      <StyledRate disabled count={1} defaultValue={Number(imDbRating) / 2} />
-                      <div>{imDbRating}</div>
-                    </RateBox>
-                  </MovieCard>
+                  <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={title} />
                 ))}
               </SlideContent>
             </div>

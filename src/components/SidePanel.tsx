@@ -1,5 +1,6 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Button, Rate, Spin } from 'antd';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
@@ -74,9 +75,11 @@ const SidePanel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) 
                 count={5}
                 defaultValue={Number(imDbRating) / 2}
               />
-              <Btn type="primary" size="middle" danger>
-                Watch now
-              </Btn>
+              <Link to={`watchmovie/${id}`}>
+                <Btn type="primary" size="middle" danger>
+                  Watch now
+                </Btn>
+              </Link>
             </Info>
           </Wrapper>
         ))
