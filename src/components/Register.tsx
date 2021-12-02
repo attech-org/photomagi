@@ -1,12 +1,17 @@
-import { signInWithEmailAndPassword } from '@firebase/auth';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { Button, Input, Modal, Form } from 'antd';
 import { useState } from 'react';
 import styled from 'styled-components';
 
 import { auth } from '../firebase/firebase-config';
 
-const LogInModal = styled(Modal)``;
-const LoginButton = styled(Button)`
+const StyledRegisterModal = styled(Modal)``;
+const RegisterButton = styled(Button)`
+  background-color: #1f1f1f;
+  border: none;
+  &:hover {
+    background-color: #177ddc;
+  }
   background-color: #1f1f1f;
   border: none;
   &:hover {
@@ -17,33 +22,38 @@ interface OnFinish {
   Email: string;
   password: string;
 }
-const LoginModal: React.FunctionComponent = () => {
-  const [visibleLogin, setVisibleLogin] = useState(false);
+const RegisterModal: React.FunctionComponent = () => {
+  const [visibleRegister, setVisibleRegister] = useState(false);
 
   const onFinish = async (values: OnFinish) => {
     try {
-      await signInWithEmailAndPassword(auth, values.Email, values.password);
-      setVisibleLogin(false);
+      await createUserWithEmailAndPassword(auth, values.Email, values.password);
+      setVisibleRegister(false);
     } catch (error: unknown) {
       console.error(error);
     }
   };
 
-  const showModalLogin = () => {
-    setVisibleLogin(true);
+  const showModalRegister = () => {
+    setVisibleRegister(true);
   };
 
-  const handleCancelLogin = () => {
-    setVisibleLogin(false);
+  const handleCancelRegister = () => {
+    setVisibleRegister(false);
   };
   return (
     <>
-      <LoginButton type="primary" onClick={() => showModalLogin()}>
-        Log In
-      </LoginButton>
-      <LogInModal title="Log In" visible={visibleLogin} onCancel={handleCancelLogin} footer={null}>
+      <RegisterButton type="primary" onClick={showModalRegister}>
+        Register
+      </RegisterButton>
+      <StyledRegisterModal
+        title="Sign In"
+        visible={visibleRegister}
+        onCancel={handleCancelRegister}
+        footer={null}
+      >
         <Form
-          name="LoginForm"
+          name="SigninForm"
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}
@@ -65,15 +75,16 @@ const LoginModal: React.FunctionComponent = () => {
           >
             <Input.Password />
           </Form.Item>
+
           <Form.Item wrapperCol={{ offset: 9, span: 15 }}>
             <Button type="primary" htmlType="submit">
-              Log In
+              Register Now
             </Button>
           </Form.Item>
         </Form>
-      </LogInModal>
+      </StyledRegisterModal>
     </>
   );
 };
 
-export default LoginModal;
+export default RegisterModal;
