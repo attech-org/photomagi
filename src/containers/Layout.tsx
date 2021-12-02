@@ -1,12 +1,16 @@
 import { LogoutOutlined } from '@ant-design/icons';
 import { Layout, Input, Button, Divider, Typography } from 'antd';
-import { signOut, onAuthStateChanged, User } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import LoginModal from '../components/Login';
 import RegisterModal from '../components/Register';
 import { auth } from '../firebase/firebase-config';
+import { setCurrentUser } from '../redux/app/actions';
+import { AppStore } from '../redux/app/reducer';
+import { RootStore } from '../redux/store';
 import ResponsiveHeader from './ResponsiveHeader';
 import Sidebar from './Sidebar';
 
@@ -31,15 +35,18 @@ const SearchResult = styled(Search)`
 `;
 
 const LayoutWrapper: React.FC = ({ children }) => {
-  const [currentUserState, setCurrentUserState] = useState<User>();
+  // const [currentUserState, setCurrentUserState] = useState<User>();
+  const dispatch = useDispatch();
+  const currentUserStore = useSelector<RootStore, AppStore['currentUserStore']>(
+    (store) => store.app.currentUserStore,
+  );
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => currentUser && setCurrentUserState(currentUser));
+    onAuthStateChanged(auth, (currentUser) => currentUser && dispatch(setCurrentUser(currentUser)));
   }, []);
-
   const logout = async () => {
     try {
       await signOut(auth);
-      setCurrentUserState(undefined);
+      dispatch(setCurrentUser(undefined));
     } catch (error: unknown) {
       console.error(error);
     }
@@ -51,9 +58,9 @@ const LayoutWrapper: React.FC = ({ children }) => {
       <Layout>
         <StyledHeader>
           <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
-          {currentUserState ? (
+          {currentUserStore ? (
             <div>
-              <Text>{currentUserState?.email}</Text>
+              <Text>{currentUserStore.email}</Text>
               <Divider type="vertical" />
               <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
                 Log Out
