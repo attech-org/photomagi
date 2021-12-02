@@ -1,20 +1,20 @@
 import { MostPopularMovie, SingleMovie } from '../../services/types';
-import { AppActionTypes, AppActions } from './types';
+import { MoviesActionTypes, MoviesActions } from './types';
 
-export interface AppStore {
+export interface MoviesStore {
   movies: MostPopularMovie[];
   singleMovie?: SingleMovie;
 }
 
-const initialStore: AppStore = {
+const initialStore: MoviesStore = {
   movies: [],
 };
 
-const app = (store = initialStore, action: AppActionTypes) => {
+const app = (store = initialStore, action: MoviesActionTypes) => {
   switch (action.type) {
-    case AppActions.SET_MOVIES:
+    case MoviesActions.SET_MOVIES:
       return { ...store, movies: action.payload };
-    case AppActions.SET_MOVIE_TITLE:
+    case MoviesActions.SET_MOVIE_TITLE:
       return { ...store, singleMovie: action.payload };
     default:
       return store;

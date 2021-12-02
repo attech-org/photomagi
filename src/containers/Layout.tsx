@@ -1,12 +1,16 @@
 import { LogoutOutlined } from '@ant-design/icons';
 import { Layout, Input, Button, Divider, Typography } from 'antd';
-import { signOut, onAuthStateChanged, User } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import LoginModal from '../components/Login';
 import RegisterModal from '../components/Register';
 import { auth } from '../firebase/firebase-config';
+import { setUser } from '../redux/profile/actions';
+import { ProfileStore } from '../redux/profile/reducer';
+import { RootStore } from '../redux/store';
 import ResponsiveHeader from './ResponsiveHeader';
 import Sidebar from './Sidebar';
 
@@ -31,15 +35,16 @@ const SearchResult = styled(Search)`
 `;
 
 const LayoutWrapper: React.FC = ({ children }) => {
-  const [currentUserState, setCurrentUserState] = useState<User>();
+  // const [currentUserState, setCurrentUserState] = useState<User>();
+  const dispatch = useDispatch();
+  const profile = useSelector<RootStore, ProfileStore['profile']>((store) => store.profile.profile);
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => currentUser && setCurrentUserState(currentUser));
+    onAuthStateChanged(auth, (currentUser) => currentUser && dispatch(setUser(currentUser)));
   }, []);
-
   const logout = async () => {
     try {
       await signOut(auth);
-      setCurrentUserState(undefined);
+      dispatch(setUser(undefined));
     } catch (error: unknown) {
       console.error(error);
     }
@@ -51,9 +56,9 @@ const LayoutWrapper: React.FC = ({ children }) => {
       <Layout>
         <StyledHeader>
           <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
-          {currentUserState ? (
+          {profile ? (
             <div>
-              <Text>{currentUserState?.email}</Text>
+              <Text>{profile.email}</Text>
               <Divider type="vertical" />
               <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
                 Log Out
