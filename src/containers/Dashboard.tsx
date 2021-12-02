@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import FiveFilmsCarousel from '../components/FiveFilmsCarousel';
 import MainCarousel from '../components/MainCarousel';
 import SidePanel from '../components/SidePanel';
-import { loadMovies } from '../redux/app/actions';
-import { AppStore } from '../redux/app/reducer';
+import { loadMovies } from '../redux/movies/actions';
+import { MoviesStore } from '../redux/movies/reducer';
 import { RootStore } from '../redux/store';
 import { MostPopularMovie } from '../services/types';
 
@@ -15,7 +15,7 @@ export interface CarouselContainerProps {
 }
 const DashboardContainer: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const movies = useSelector<RootStore, AppStore['movies']>((store) => store.app.movies);
+  const movies = useSelector<RootStore, MoviesStore['movies']>((store) => store.movies.movies);
   useEffect(() => {
     dispatch(loadMovies());
   }, []);

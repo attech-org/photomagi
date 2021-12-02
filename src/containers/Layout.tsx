@@ -8,8 +8,8 @@ import styled from 'styled-components';
 import LoginModal from '../components/Login';
 import RegisterModal from '../components/Register';
 import { auth } from '../firebase/firebase-config';
-import { setUser } from '../redux/app/actions';
-import { AppStore } from '../redux/app/reducer';
+import { setUser } from '../redux/profile/actions';
+import { ProfileStore } from '../redux/profile/reducer';
 import { RootStore } from '../redux/store';
 import ResponsiveHeader from './ResponsiveHeader';
 import Sidebar from './Sidebar';
@@ -37,7 +37,7 @@ const SearchResult = styled(Search)`
 const LayoutWrapper: React.FC = ({ children }) => {
   // const [currentUserState, setCurrentUserState] = useState<User>();
   const dispatch = useDispatch();
-  const profile = useSelector<RootStore, AppStore['profile']>((store) => store.app.profile);
+  const profile = useSelector<RootStore, ProfileStore['profile']>((store) => store.profile.profile);
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => currentUser && dispatch(setUser(currentUser)));
   }, []);

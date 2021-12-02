@@ -2,10 +2,12 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import app from './app/reducer';
+import movies from './movies/reducer';
+import profile from './profile/reducer';
 
 const rootReducer = combineReducers({
-  app,
+  movies,
+  profile,
 });
 
 const middlewares = [];
