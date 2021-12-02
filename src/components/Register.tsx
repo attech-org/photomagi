@@ -1,5 +1,5 @@
-import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { Button, Input, Modal, Form } from 'antd';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -53,7 +53,7 @@ const RegisterModal: React.FunctionComponent = () => {
         footer={null}
       >
         <Form
-          name="SigninForm"
+          name="RegisterForm"
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           initialValues={{ remember: true }}

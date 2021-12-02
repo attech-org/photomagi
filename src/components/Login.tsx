@@ -1,5 +1,5 @@
-import { signInWithEmailAndPassword } from '@firebase/auth';
 import { Button, Input, Modal, Form } from 'antd';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import styled from 'styled-components';
 
