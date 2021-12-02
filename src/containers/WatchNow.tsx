@@ -1,9 +1,8 @@
-import { Button, Col, Row, Space, Tag, Typography, Image } from 'antd';
+import { Space, Typography } from 'antd';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Link } from 'react-router-dom';
+import { ReactYouTubeLite } from 'react-youtube-lite';
 import styled from 'styled-components';
 
-import BtnTrailer from '../components/BtnTrailer';
 import MovieCard from '../components/MovieCard';
 import { SingleMovie } from '../services/types';
 
@@ -38,35 +37,7 @@ const AfterTitleSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 6em;
-`;
-
-const Keywords = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-  margin-bottom: 0.5em;
-`;
-
-const Plot = styled.p``;
-const BtnBox = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const Btn = styled(Button)`
-  background: linear-gradient(#e00000, #a10000) !important;
-  border: none;
-  width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:first-child {
-    margin-right: 10px;
-  }
-  &:hover {
-    background: linear-gradient(#ac0000, #960000) !important;
-  }
+  margin-bottom: 3rem;
 `;
 
 const Similar = styled.p`
@@ -77,16 +48,12 @@ const Similar = styled.p`
 const SlideContent = styled(Space)`
   width: 100%;
 `;
-const StyledImage = styled(Image)`
-  width: calc(100% - 0.5rem * 2);
-  margin: 0.25rem 0.5rem;
-`;
 
 interface WatchMovieProps {
   singleMovie?: SingleMovie;
 }
 
-const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleMovie }) => {
+const WatchNowContainer: React.FC<WatchMovieProps> = ({ singleMovie }) => {
   const { Title } = Typography;
   return (
     <Wrapper resource={singleMovie?.posters?.posters[1].link}>
@@ -114,42 +81,20 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
       </BeforeTitleSection>
 
       <AfterTitleSection>
-        <Row gutter={[24, 24]}>
-          <Col span={12}>
-            <Keywords>
-              {singleMovie?.keywords.split(',').map((word) => (
-                <Tag key={singleMovie.id}>{word}</Tag>
-              ))}
-            </Keywords>
-            <Plot>{singleMovie?.plot}</Plot>
-            <BtnBox>
-              <Link to={`/watchnow/${singleMovie?.id}`}>
-                <Btn type="primary" size="middle" danger>
-                  Watch now
-                </Btn>
-              </Link>
-              <Link to="/">
-                <BtnTrailer />
-              </Link>
-            </BtnBox>
-          </Col>
-          <Col span={12}>
-            {singleMovie?.images?.items.slice(0, 4).map(({ image }) => (
-              <StyledImage width="50%" src={image} key={singleMovie.images?.imDbid} />
-            ))}
-          </Col>
-        </Row>
+        <ReactYouTubeLite
+          url="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"
+          playlist={false}
+          adNetwork={false}
+        />
       </AfterTitleSection>
       <Similar>Similar:</Similar>
       <SlideContent>
-        {singleMovie?.similars
-          .map(({ image, fullTitle, id, imDbRating }) => (
-            <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
-          ))
-          .slice(0, 6)}
+        {singleMovie?.similars.slice(0, 5).map(({ image, fullTitle, id, imDbRating }) => (
+          <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
+        ))}
       </SlideContent>
     </Wrapper>
   );
 };
 
-export default WatchMovieContainer;
+export default WatchNowContainer;
