@@ -1,8 +1,11 @@
+import { User } from 'firebase/auth';
+
 import { MostPopularMovie, SingleMovie } from '../../services/types';
 
 export enum AppActions {
   SET_MOVIES = 'SET_MOVIES',
   SET_MOVIE_TITLE = 'SET_MOVIE_TITLE',
+  SET_CURRENT_USER = 'SET_CURRENT_USER',
 }
 
 interface SetMoviesDataAction {
@@ -15,4 +18,8 @@ interface SetMovieTitleAction {
   payload: SingleMovie;
 }
 
-export type AppActionTypes = SetMoviesDataAction | SetMovieTitleAction;
+interface SetCurrentUserAction {
+  type: AppActions.SET_CURRENT_USER;
+  payload: User | undefined;
+}
+export type AppActionTypes = SetMoviesDataAction | SetMovieTitleAction | SetCurrentUserAction;

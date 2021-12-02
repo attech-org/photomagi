@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth';
 import { Dispatch } from 'react';
 
 import { mostPopularMovies, singleMovie } from '../../services/api';
@@ -27,3 +28,8 @@ export const loadMovieTitle = (id: string) => async (dispatch: Dispatch<AppActio
     dispatch(setMovieTitle(data));
   }
 };
+
+export const setCurrentUser = (value: User | undefined): AppActionTypes => ({
+  type: AppActions.SET_CURRENT_USER,
+  payload: value,
+});
