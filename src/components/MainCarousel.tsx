@@ -1,9 +1,10 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Button, Carousel, Rate, Spin } from 'antd';
+import { Button, Carousel, Rate, Space, Spin } from 'antd';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
+import BtnTrailer from './BtnTrailer';
 
 const Main = styled.div`
   padding: 2rem;
@@ -66,6 +67,7 @@ const Btn = styled(Button)`
   background: linear-gradient(#e00000, #a10000) !important;
   border: none;
   width: 100px;
+  margin-right: 2px;
   &:hover {
     background: linear-gradient(#ac0000, #960000) !important;
   }
@@ -100,11 +102,16 @@ const MainCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies 
                   count={5}
                   defaultValue={Number(imDbRating) / 2}
                 />
-                <Link to={`watchmovie/${id}`}>
-                  <Btn type="primary" size="middle" danger>
-                    Watch now
-                  </Btn>
-                </Link>
+                <Space>
+                  <Link to={`watchmovie/${id}`}>
+                    <Btn type="primary" size="middle" danger>
+                      Watch now
+                    </Btn>
+                  </Link>
+                  <Link to="/">
+                    <BtnTrailer />
+                  </Link>
+                </Space>
               </Content>
             </Wrapper>
           ))

@@ -3,6 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import BtnTrailer from '../components/BtnTrailer';
 import MovieCard from '../components/MovieCard';
 import { SingleMovie } from '../services/types';
 
@@ -33,34 +34,12 @@ const InfoItem = styled.p`
   margin: 0 1em;
 `;
 
-// const Imgage = styled.div`
-//   background-image: ${(props) => `url(${props.resource})`};
-//   background-position: top center;
-//   background-size: cover;
-//   padding: 5.5em 4em;
-//   border-radius: 5px;
-// `;
 const AfterTitleSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-bottom: 6em;
 `;
-
-// const Title = styled.h1`
-//   text-transform: uppercase;
-//   text-align: center;
-//   font-weight: bold;
-//   font-size: 35px;
-// `;
-
-// const Word = styled.p`
-//   border: 1px solid gray;
-//   border-radius: 3px;
-//   width: 36rem;
-//   text-align: center;
-//   margin-right: 0.5em;
-// `;
 
 const Keywords = styled.div`
   display: flex;
@@ -74,10 +53,17 @@ const BtnBox = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const Btn = styled(Button)`
   background: linear-gradient(#e00000, #a10000) !important;
   border: none;
   width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:first-child {
+    margin-right: 10px;
+  }
   &:hover {
     background: linear-gradient(#ac0000, #960000) !important;
   }
@@ -141,6 +127,9 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
                 <Btn type="primary" size="middle" danger>
                   Watch now
                 </Btn>
+              </Link>
+              <Link to="/">
+                <BtnTrailer />
               </Link>
             </BtnBox>
           </Col>
