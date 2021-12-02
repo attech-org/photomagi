@@ -29,7 +29,7 @@ export const loadMovieTitle = (id: string) => async (dispatch: Dispatch<AppActio
   }
 };
 
-export const setCurrentUser = (value: User | undefined): AppActionTypes => ({
+export const setUser = (value: User | undefined): AppActionTypes => ({
   type: AppActions.SET_CURRENT_USER,
   payload: value,
 });

@@ -6,7 +6,7 @@ import { AppActionTypes, AppActions } from './types';
 export interface AppStore {
   movies: MostPopularMovie[];
   singleMovie?: SingleMovie;
-  currentUserStore?: User;
+  profile?: User;
 }
 
 const initialStore: AppStore = {
@@ -20,7 +20,7 @@ const app = (store = initialStore, action: AppActionTypes) => {
     case AppActions.SET_MOVIE_TITLE:
       return { ...store, singleMovie: action.payload };
     case AppActions.SET_CURRENT_USER:
-      return { ...store, currentUserStore: action.payload };
+      return { ...store, profile: action.payload };
     default:
       return store;
   }

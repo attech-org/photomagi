@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import LoginModal from '../components/Login';
 import RegisterModal from '../components/Register';
 import { auth } from '../firebase/firebase-config';
-import { setCurrentUser } from '../redux/app/actions';
+import { setUser } from '../redux/app/actions';
 import { AppStore } from '../redux/app/reducer';
 import { RootStore } from '../redux/store';
 import ResponsiveHeader from './ResponsiveHeader';
@@ -37,16 +37,14 @@ const SearchResult = styled(Search)`
 const LayoutWrapper: React.FC = ({ children }) => {
   // const [currentUserState, setCurrentUserState] = useState<User>();
   const dispatch = useDispatch();
-  const currentUserStore = useSelector<RootStore, AppStore['currentUserStore']>(
-    (store) => store.app.currentUserStore,
-  );
+  const profile = useSelector<RootStore, AppStore['profile']>((store) => store.app.profile);
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => currentUser && dispatch(setCurrentUser(currentUser)));
+    onAuthStateChanged(auth, (currentUser) => currentUser && dispatch(setUser(currentUser)));
   }, []);
   const logout = async () => {
     try {
       await signOut(auth);
-      dispatch(setCurrentUser(undefined));
+      dispatch(setUser(undefined));
     } catch (error: unknown) {
       console.error(error);
     }
@@ -58,9 +56,9 @@ const LayoutWrapper: React.FC = ({ children }) => {
       <Layout>
         <StyledHeader>
           <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
-          {currentUserStore ? (
+          {profile ? (
             <div>
-              <Text>{currentUserStore.email}</Text>
+              <Text>{profile.email}</Text>
               <Divider type="vertical" />
               <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
                 Log Out
