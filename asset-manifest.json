@@ -1,21 +1,22 @@
 {
   "files": {
-    "main.js": "https://attech-org.github.io/photomagi/static/js/main.27beb2ef.chunk.js",
-    "main.js.map": "https://attech-org.github.io/photomagi/static/js/main.27beb2ef.chunk.js.map",
+    "main.js": "https://attech-org.github.io/photomagi/static/js/main.2e73055d.chunk.js",
+    "main.js.map": "https://attech-org.github.io/photomagi/static/js/main.2e73055d.chunk.js.map",
     "runtime-main.js": "https://attech-org.github.io/photomagi/static/js/runtime-main.bb094acb.js",
     "runtime-main.js.map": "https://attech-org.github.io/photomagi/static/js/runtime-main.bb094acb.js.map",
-    "static/css/2.0ef7fd8d.chunk.css": "https://attech-org.github.io/photomagi/static/css/2.0ef7fd8d.chunk.css",
-    "static/js/2.1857c254.chunk.js": "https://attech-org.github.io/photomagi/static/js/2.1857c254.chunk.js",
-    "static/js/2.1857c254.chunk.js.map": "https://attech-org.github.io/photomagi/static/js/2.1857c254.chunk.js.map",
+    "static/css/2.b15bd8c1.chunk.css": "https://attech-org.github.io/photomagi/static/css/2.b15bd8c1.chunk.css",
+    "static/js/2.a325bdd7.chunk.js": "https://attech-org.github.io/photomagi/static/js/2.a325bdd7.chunk.js",
+    "static/js/2.a325bdd7.chunk.js.map": "https://attech-org.github.io/photomagi/static/js/2.a325bdd7.chunk.js.map",
     "index.html": "https://attech-org.github.io/photomagi/index.html",
-    "static/css/2.0ef7fd8d.chunk.css.map": "https://attech-org.github.io/photomagi/static/css/2.0ef7fd8d.chunk.css.map",
-    "static/js/2.1857c254.chunk.js.LICENSE.txt": "https://attech-org.github.io/photomagi/static/js/2.1857c254.chunk.js.LICENSE.txt",
+    "static/css/2.b15bd8c1.chunk.css.map": "https://attech-org.github.io/photomagi/static/css/2.b15bd8c1.chunk.css.map",
+    "static/js/2.a325bdd7.chunk.js.LICENSE.txt": "https://attech-org.github.io/photomagi/static/js/2.a325bdd7.chunk.js.LICENSE.txt",
+    "static/media/bootstrap-icons.css": "https://attech-org.github.io/photomagi/static/media/bootstrap-icons.ea6f3dfe.woff",
     "static/media/logo.64719e73.png": "https://attech-org.github.io/photomagi/static/media/logo.64719e73.png"
   },
   "entrypoints": [
     "static/js/runtime-main.bb094acb.js",
-    "static/css/2.0ef7fd8d.chunk.css",
-    "static/js/2.1857c254.chunk.js",
-    "static/js/main.27beb2ef.chunk.js"
+    "static/css/2.b15bd8c1.chunk.css",
+    "static/js/2.a325bdd7.chunk.js",
+    "static/js/main.2e73055d.chunk.js"
   ]
 }
