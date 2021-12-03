@@ -56,7 +56,7 @@ const SidePanel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) 
   const antIcon = <LoadingOutlined style={{ color: 'red', fontSize: 24 }} spin />;
   return (
     <Content>
-      <BoxTitle>Popular Movie {!movies.length && <Spin indicator={antIcon} />}</BoxTitle>
+      <BoxTitle>Popular {!movies.length && <Spin indicator={antIcon} />}</BoxTitle>
 
       {movies
         .map(({ image, id, title, year, imDbRating }) => (
