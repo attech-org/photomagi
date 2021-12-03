@@ -108,9 +108,7 @@ const MainCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies 
                       Watch now
                     </Btn>
                   </Link>
-                  <Link to="/watchtrailer">
-                    <BtnTrailer />
-                  </Link>
+                  <BtnTrailer id={id} />
                 </Space>
               </Content>
             </Wrapper>

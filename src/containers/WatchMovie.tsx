@@ -128,9 +128,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
                   Watch now
                 </Btn>
               </Link>
-              <Link to="/">
-                <BtnTrailer />
-              </Link>
+              <BtnTrailer id={singleMovie?.id} />
             </BtnBox>
           </Col>
           <Col span={12}>

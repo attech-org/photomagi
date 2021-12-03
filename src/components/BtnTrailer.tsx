@@ -1,7 +1,11 @@
 import { Button } from 'antd';
 import styled from 'styled-components';
 
-const BtnTrailer = () => {
+interface BtnTrailerProps {
+  id?: string;
+}
+
+const BtnTrailer: React.FC<BtnTrailerProps> = ({ id }) => {
   const ButtonTrailer = styled(Button)`
     width: 100px;
     display: flex;
@@ -16,7 +20,12 @@ const BtnTrailer = () => {
   `;
 
   return (
-    <ButtonTrailer type="primary" size="middle" danger>
+    <ButtonTrailer
+      href={`https://imdb-api.com/en/API/Trailer/${process.env.REACT_APP_API_KEY}/${id}`}
+      type="primary"
+      size="middle"
+      danger
+    >
       Watch trailer
     </ButtonTrailer>
   );
