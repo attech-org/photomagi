@@ -107,7 +107,11 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
       <BeforeTitleSection>
         <TopInfo>
           <InfoItem>
-            <i className="bi bi-camera-reels"> {singleMovie?.type}</i>
+            {singleMovie?.type.toUpperCase().includes('MOVIE') ? (
+              <i className="bi bi-camera-reels"> {singleMovie?.type}</i>
+            ) : (
+              <i className="bi bi-tv"> {singleMovie?.type}</i>
+            )}
           </InfoItem>
 
           <InfoItem>

@@ -1,8 +1,9 @@
 import Layout from '../containers/Layout';
+import TvShowContainer from '../containers/TvShow';
 
 const TvShowPage: React.FunctionComponent = () => (
   <Layout>
-    <div>TvShow page</div>
+    <TvShowContainer />
   </Layout>
 );
 

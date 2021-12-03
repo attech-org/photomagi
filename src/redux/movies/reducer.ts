@@ -4,10 +4,12 @@ import { MoviesActionTypes, MoviesActions } from './types';
 export interface MoviesStore {
   movies: MostPopularMovie[];
   singleMovie?: SingleMovie;
+  series: MostPopularMovie[];
 }
 
 const initialStore: MoviesStore = {
   movies: [],
+  series: [],
 };
 
 const app = (store = initialStore, action: MoviesActionTypes) => {
@@ -16,6 +18,8 @@ const app = (store = initialStore, action: MoviesActionTypes) => {
       return { ...store, movies: action.payload };
     case MoviesActions.SET_MOVIE_TITLE:
       return { ...store, singleMovie: action.payload };
+    case MoviesActions.SET_TV:
+      return { ...store, series: action.payload };
     default:
       return store;
   }

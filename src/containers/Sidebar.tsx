@@ -78,10 +78,8 @@ const Sidebar: React.FC = () => {
                 <Link to="/coming-soon">Coming Soon</Link>
               </Badge>
             </Item>
-            <Item key="/tv-show" icon={<PlayCircleFilled />} disabled title="coming soon">
-              <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-                <Link to="/tv-show">Tv Show</Link>
-              </Badge>
+            <Item key="/tv-show" icon={<PlayCircleFilled />} title="coming soon">
+              <Link to="/tv-show">Tv Show</Link>
             </Item>
           </ItemGroupStld>
           <ItemGroupStld className={isCollapsed.toString()} key="g2" title="LIBRARY">
