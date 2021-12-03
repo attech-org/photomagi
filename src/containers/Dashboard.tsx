@@ -24,7 +24,9 @@ const DashboardContainer: React.FunctionComponent = () => {
       <Col span={19}>
         <MainCarousel movies={movies} />
         <Col span={24}>
-          <FiveFilmsCarousel movies={movies.slice(0, 20)} />
+          <FiveFilmsCarousel
+            movies={movies.slice(0, 20).sort(() => (Math.random() > 0.5 ? 1 : -1))}
+          />
         </Col>
       </Col>
       <Col span={4}>
