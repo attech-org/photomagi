@@ -16,6 +16,8 @@ export interface CarouselContainerProps {
 const TvShowContainer: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const series = useSelector<RootStore, MoviesStore['series']>((store) => store.movies.series);
+  const sortedSeries = [...series];
+  sortedSeries.sort(() => (Math.random() > 0.5 ? 1 : -1));
   useEffect(() => {
     dispatch(loadTVs());
   }, []);
@@ -24,7 +26,7 @@ const TvShowContainer: React.FunctionComponent = () => {
       <Col span={19}>
         <MainCarousel movies={series} />
         <Col span={24}>
-          <FiveFilmsCarousel movies={series.slice(0, 20)} />
+          <FiveFilmsCarousel movies={sortedSeries.slice(0, 20)} />
         </Col>
       </Col>
       <Col span={4}>

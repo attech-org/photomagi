@@ -16,6 +16,8 @@ export interface CarouselContainerProps {
 const DashboardContainer: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const movies = useSelector<RootStore, MoviesStore['movies']>((store) => store.movies.movies);
+  const sortedMovies = [...movies];
+  sortedMovies.sort(() => (Math.random() > 0.5 ? 1 : -1));
   useEffect(() => {
     dispatch(loadMovies());
   }, []);
@@ -24,7 +26,7 @@ const DashboardContainer: React.FunctionComponent = () => {
       <Col span={19}>
         <MainCarousel movies={movies} />
         <Col span={24}>
-          <FiveFilmsCarousel movies={movies.slice(0, 20)} />
+          <FiveFilmsCarousel movies={sortedMovies.slice(0, 20)} />
         </Col>
       </Col>
       <Col span={4}>
