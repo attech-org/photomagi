@@ -65,3 +65,19 @@ export const singleMovie = async (id: string) => {
     return false;
   }
 };
+
+export const mostPopularTVs = async () => {
+  try {
+    const res = await moviesApi.get<MoviesResponse<MostPopularMovie>>(
+      `MostPopularTVs/${process.env.REACT_APP_API_KEY}`,
+    );
+    if (res.data.errorMessage) {
+      throw new Error(res.data.errorMessage);
+    } else {
+      return res.data.items;
+    }
+  } catch (e) {
+    console.warn(e);
+    return false;
+  }
+};
