@@ -1,10 +1,14 @@
 import { Button, Col, Row, Space, Tag, Typography, Image } from 'antd';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import BtnTrailer from '../components/BtnTrailer';
 import MovieCard from '../components/MovieCard';
+import { loadMovieTrailer } from '../redux/app/actions';
+import { AppStore } from '../redux/app/reducer';
+import { RootStore } from '../redux/store';
 import { SingleMovie } from '../services/types';
 
 const Wrapper = styled.div`
@@ -69,6 +73,20 @@ const Btn = styled(Button)`
   }
 `;
 
+const ButtonTrailer = styled(Button)`
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  padding: 0;
+  border: solid 1px #ac0000 !important;
+  &:hover {
+    background: rgba(255, 0, 0, 0.4) !important;
+    color: lightgray !important;
+  }
+`;
+
 const Similar = styled.p`
   font-weight: bold;
   font-size: 20px;
@@ -88,6 +106,14 @@ interface WatchMovieProps {
 
 const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleMovie }) => {
   const { Title } = Typography;
+
+  const dispatch = useDispatch();
+  const trailer = useSelector<RootStore, AppStore['trailer']>((store) => store.app.trailer);
+
+  useEffect(() => {
+    dispatch(loadMovieTrailer(singleMovie?.id));
+  }, [singleMovie?.id]);
+
   return (
     <Wrapper resource={singleMovie?.posters?.posters[1].link}>
       <BeforeTitleSection>
@@ -128,7 +154,11 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
                   Watch now
                 </Btn>
               </Link>
-              <BtnTrailer id={singleMovie?.id} />
+              {trailer?.link ? (
+                <ButtonTrailer href={trailer?.link} type="primary" size="middle" danger>
+                  Watch trailer
+                </ButtonTrailer>
+              ) : null}
             </BtnBox>
           </Col>
           <Col span={12}>

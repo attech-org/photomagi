@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
-import BtnTrailer from './BtnTrailer';
 
 const Main = styled.div`
   padding: 2rem;
@@ -108,7 +107,6 @@ const MainCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies 
                       Watch now
                     </Btn>
                   </Link>
-                  <BtnTrailer id={id} />
                 </Space>
               </Content>
             </Wrapper>
