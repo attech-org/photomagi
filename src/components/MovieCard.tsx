@@ -20,7 +20,7 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 0.5rem;
-  flex: 1 0 10rem;
+  flex: 0 0 10rem;
   min-width: 10rem;
   min-height: 14rem;
   display: flex;

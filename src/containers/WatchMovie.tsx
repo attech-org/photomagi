@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import MovieCard from '../components/MovieCard';
-import { loadMovieTrailer } from '../redux/app/actions';
-import { AppStore } from '../redux/app/reducer';
+import { loadMovieTrailer } from '../redux/movies/actions';
+import { MoviesStore } from '../redux/movies/reducer';
 import { RootStore } from '../redux/store';
 import { SingleMovie } from '../services/types';
 
@@ -108,7 +108,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
   const { Title } = Typography;
 
   const dispatch = useDispatch();
-  const trailer = useSelector<RootStore, AppStore['trailer']>((store) => store.app.trailer);
+  const trailer = useSelector<RootStore, MoviesStore['trailer']>((store) => store.movies.trailer);
 
   useEffect(() => {
     dispatch(loadMovieTrailer(singleMovie?.id));
@@ -119,7 +119,11 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
       <BeforeTitleSection>
         <TopInfo>
           <InfoItem>
-            <i className="bi bi-camera-reels"> {singleMovie?.type}</i>
+            {singleMovie?.type.toUpperCase().includes('MOVIE') ? (
+              <i className="bi bi-camera-reels"> {singleMovie?.type}</i>
+            ) : (
+              <i className="bi bi-tv"> {singleMovie?.type}</i>
+            )}
           </InfoItem>
 
           <InfoItem>
