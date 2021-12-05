@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Layout from '../containers/Layout';
 import WatchNowContainer from '../containers/WatchNow';
-import { loadMovieTitle } from '../redux/app/actions';
-import { AppStore } from '../redux/app/reducer';
+import { loadMovieTitle } from '../redux/movies/actions';
+import { MoviesStore } from '../redux/movies/reducer';
 import { RootStore } from '../redux/store';
 
 export interface MovieIdProps {
@@ -12,8 +12,8 @@ export interface MovieIdProps {
 }
 const WatchNowPage: React.FC<MovieIdProps> = ({ movieId }) => {
   const dispatch = useDispatch();
-  const singleMovie = useSelector<RootStore, AppStore['singleMovie']>(
-    (store) => store.app.singleMovie,
+  const singleMovie = useSelector<RootStore, MoviesStore['singleMovie']>(
+    (store) => store.movies.singleMovie,
   );
   useEffect(() => {
     dispatch(loadMovieTitle(movieId));
