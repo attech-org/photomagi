@@ -1,9 +1,14 @@
 import { Button, Col, Row, Space, Tag, Typography, Image } from 'antd';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import MovieCard from '../components/MovieCard';
+import { loadMovieTrailer } from '../redux/movies/actions';
+import { MoviesStore } from '../redux/movies/reducer';
+import { RootStore } from '../redux/store';
 import { SingleMovie } from '../services/types';
 
 const Wrapper = styled.div`
@@ -33,34 +38,12 @@ const InfoItem = styled.p`
   margin: 0 1em;
 `;
 
-// const Imgage = styled.div`
-//   background-image: ${(props) => `url(${props.resource})`};
-//   background-position: top center;
-//   background-size: cover;
-//   padding: 5.5em 4em;
-//   border-radius: 5px;
-// `;
 const AfterTitleSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-bottom: 6em;
 `;
-
-// const Title = styled.h1`
-//   text-transform: uppercase;
-//   text-align: center;
-//   font-weight: bold;
-//   font-size: 35px;
-// `;
-
-// const Word = styled.p`
-//   border: 1px solid gray;
-//   border-radius: 3px;
-//   width: 36rem;
-//   text-align: center;
-//   margin-right: 0.5em;
-// `;
 
 const Keywords = styled.div`
   display: flex;
@@ -74,12 +57,33 @@ const BtnBox = styled.div`
   display: flex;
   align-items: center;
 `;
+
 const Btn = styled(Button)`
   background: linear-gradient(#e00000, #a10000) !important;
   border: none;
   width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:first-child {
+    margin-right: 10px;
+  }
   &:hover {
     background: linear-gradient(#ac0000, #960000) !important;
+  }
+`;
+
+const ButtonTrailer = styled(Button)`
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  padding: 0;
+  border: solid 1px #ac0000 !important;
+  &:hover {
+    background: rgba(255, 0, 0, 0.4) !important;
+    color: lightgray !important;
   }
 `;
 
@@ -102,6 +106,14 @@ interface WatchMovieProps {
 
 const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleMovie }) => {
   const { Title } = Typography;
+
+  const dispatch = useDispatch();
+  const trailer = useSelector<RootStore, MoviesStore['trailer']>((store) => store.movies.trailer);
+
+  useEffect(() => {
+    dispatch(loadMovieTrailer(singleMovie?.id));
+  }, [singleMovie?.id]);
+
   return (
     <Wrapper resource={singleMovie?.posters?.posters[1].link}>
       <BeforeTitleSection>
@@ -141,11 +153,16 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
             </Keywords>
             <Plot>{singleMovie?.plot}</Plot>
             <BtnBox>
-              <Link to="/">
+              <Link to={`/watchnow/${singleMovie?.id}`}>
                 <Btn type="primary" size="middle" danger>
                   Watch now
                 </Btn>
               </Link>
+              {trailer?.link ? (
+                <ButtonTrailer href={trailer?.link} type="primary" size="middle" danger>
+                  Watch trailer
+                </ButtonTrailer>
+              ) : null}
             </BtnBox>
           </Col>
           <Col span={12}>

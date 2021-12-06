@@ -1,10 +1,11 @@
-import { MostPopularMovie, SingleMovie } from '../../services/types';
+import { MostPopularMovie, SingleMovie, Trailer } from '../../services/types';
 import { MoviesActionTypes, MoviesActions } from './types';
 
 export interface MoviesStore {
   movies: MostPopularMovie[];
   singleMovie?: SingleMovie;
   series: MostPopularMovie[];
+  trailer?: Trailer;
 }
 
 const initialStore: MoviesStore = {
@@ -20,6 +21,8 @@ const app = (store = initialStore, action: MoviesActionTypes) => {
       return { ...store, singleMovie: action.payload };
     case MoviesActions.SET_TV:
       return { ...store, series: action.payload };
+    case MoviesActions.SET_MOVIE_TRAILER:
+      return { ...store, trailer: action.payload };
     default:
       return store;
   }

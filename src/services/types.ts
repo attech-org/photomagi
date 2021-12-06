@@ -49,6 +49,22 @@ interface ComingSoonOtherList {
   value: string;
 }
 
+export interface Trailer {
+  imDbId: string;
+  title: string;
+  fullTitle: string;
+  type: string;
+  year: string;
+  videoId: string;
+  videoTitle: string;
+  videoDescription: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  link: string;
+  linkEmbed: string;
+  errorMessage: string;
+}
+
 export interface SingleMovie {
   actorList: ActorList[];
   awards: string;
@@ -89,7 +105,7 @@ export interface SingleMovie {
   stars: string;
   tagline: string;
   title: string;
-  trailer?: string;
+  trailer?: Trailer;
   tvEpisodeInfo?: string;
   tvSeriesInfo?: string;
   type: string;
