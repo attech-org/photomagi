@@ -18,6 +18,9 @@ const Wrapper = styled.div`
   @media screen and (max-width: 576px) {
     padding: 2rem 1rem;
   }
+  @media screen and (max-width: 768px) {
+    padding: 2rem 2.5rem;
+  }
 `;
 
 const BeforeTitleSection = styled.div`
@@ -50,7 +53,7 @@ const Similar = styled.p`
 
 const SlideContent = styled(Space)`
   width: 100%;
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 768px) {
     justify-content: space-around;
   }
 `;

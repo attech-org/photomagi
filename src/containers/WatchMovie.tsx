@@ -23,6 +23,9 @@ const Wrapper = styled.div`
   @media screen and (max-width: 576px) {
     padding: 2rem 1rem;
   }
+  @media screen and (max-width: 768px) {
+    padding: 2rem 2.5rem;
+  }
 `;
 
 const BeforeTitleSection = styled.div`
@@ -49,6 +52,9 @@ const AfterTitleSection = styled.div`
   @media screen and (max-width: 576px) {
     margin-bottom: 2.5rem;
   }
+  @media screen and (max-width: 768px) {
+    margin-bottom: 3rem;
+  }
 `;
 
 const Keywords = styled.div`
@@ -62,7 +68,7 @@ const Keywords = styled.div`
 `;
 
 const Plot = styled.p`
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 768px) {
     margin: 1rem 0 1.5rem;
   }
 `;
@@ -110,7 +116,7 @@ const Similar = styled.p`
 
 const SlideContent = styled(Space)`
   width: 100%;
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 768px) {
     justify-content: space-around;
   }
 `;
@@ -164,7 +170,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
 
       <AfterTitleSection>
         <Row gutter={[24, 24]}>
-          <Col span={12} xs={24}>
+          <Col span={12} xs={24} md={22}>
             <Keywords>
               {singleMovie?.keywords.split(',').map((word) => (
                 <Tag key={singleMovie.id}>{word}</Tag>
@@ -184,7 +190,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
               ) : null}
             </BtnBox>
           </Col>
-          <Col span={12} xs={24}>
+          <Col span={12} xs={24} md={22}>
             {singleMovie?.images?.items.slice(0, 4).map(({ image }) => (
               <StyledImage width="50%" src={image} key={singleMovie.images?.imDbid} />
             ))}
