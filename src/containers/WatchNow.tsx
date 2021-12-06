@@ -15,6 +15,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 7em 10em;
+  @media screen and (max-width: 576px) {
+    padding: 2rem 1rem;
+  }
 `;
 
 const BeforeTitleSection = styled.div`
@@ -47,6 +50,9 @@ const Similar = styled.p`
 
 const SlideContent = styled(Space)`
   width: 100%;
+  @media screen and (max-width: 576px) {
+    justify-content: space-around;
+  }
 `;
 
 interface WatchMovieProps {
@@ -88,7 +94,7 @@ const WatchNowContainer: React.FC<WatchMovieProps> = ({ singleMovie }) => {
         />
       </AfterTitleSection>
       <Similar>Similar:</Similar>
-      <SlideContent>
+      <SlideContent align="center" wrap>
         {singleMovie?.similars.slice(0, 5).map(({ image, fullTitle, id, imDbRating }) => (
           <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
         ))}

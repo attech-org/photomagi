@@ -20,6 +20,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 7em 10em;
+  @media screen and (max-width: 576px) {
+    padding: 2rem 1rem;
+  }
 `;
 
 const BeforeTitleSection = styled.div`
@@ -43,6 +46,9 @@ const AfterTitleSection = styled.div`
   flex-direction: column;
   width: 100%;
   margin-bottom: 6em;
+  @media screen and (max-width: 576px) {
+    margin-bottom: 2.5rem;
+  }
 `;
 
 const Keywords = styled.div`
@@ -50,12 +56,22 @@ const Keywords = styled.div`
   flex-wrap: wrap;
   gap: 0.5em;
   margin-bottom: 0.5em;
+  @media screen and (max-width: 576px) {
+    margin-bottom: 0;
+  }
 `;
 
-const Plot = styled.p``;
+const Plot = styled.p`
+  @media screen and (max-width: 576px) {
+    margin: 1rem 0 1.5rem;
+  }
+`;
 const BtnBox = styled.div`
   display: flex;
   align-items: center;
+  @media screen and (max-width: 576px) {
+    margin-botton: 2rem;
+  }
 `;
 
 const Btn = styled(Button)`
@@ -94,6 +110,9 @@ const Similar = styled.p`
 
 const SlideContent = styled(Space)`
   width: 100%;
+  @media screen and (max-width: 576px) {
+    justify-content: space-around;
+  }
 `;
 const StyledImage = styled(Image)`
   width: calc(100% - 0.5rem * 2);
@@ -145,7 +164,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
 
       <AfterTitleSection>
         <Row gutter={[24, 24]}>
-          <Col span={12}>
+          <Col span={12} xs={24}>
             <Keywords>
               {singleMovie?.keywords.split(',').map((word) => (
                 <Tag key={singleMovie.id}>{word}</Tag>
@@ -165,7 +184,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
               ) : null}
             </BtnBox>
           </Col>
-          <Col span={12}>
+          <Col span={12} xs={24}>
             {singleMovie?.images?.items.slice(0, 4).map(({ image }) => (
               <StyledImage width="50%" src={image} key={singleMovie.images?.imDbid} />
             ))}
@@ -173,7 +192,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
         </Row>
       </AfterTitleSection>
       <Similar>Similar:</Similar>
-      <SlideContent>
+      <SlideContent align="center" wrap>
         {singleMovie?.similars
           .map(({ image, fullTitle, id, imDbRating }) => (
             <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
