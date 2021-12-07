@@ -23,13 +23,13 @@ const TvShowContainer: React.FunctionComponent = () => {
   }, []);
   return (
     <Row>
-      <Col span={19}>
+      <Col sm={{ span: 24 }} lg={{ span: 19 }}>
         <MainCarousel movies={series} />
         <Col span={24}>
           <FiveFilmsCarousel movies={sortedSeries.slice(0, 20)} />
         </Col>
       </Col>
-      <Col span={4}>
+      <Col sm={{ span: 24 }} lg={{ span: 4 }}>
         <SidePanel movies={series} />
       </Col>
     </Row>

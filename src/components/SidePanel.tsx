@@ -8,7 +8,7 @@ import { CarouselContainerProps } from '../containers/Dashboard';
 const Content = styled.div`
   padding-top: 2rem;
   @media (max-width: 576px) {
-    padding: 2rem;
+    padding: 1.5rem;
   }
 `;
 const Wrapper = styled.div`

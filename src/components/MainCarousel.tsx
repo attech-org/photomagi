@@ -6,10 +6,10 @@ import styled from 'styled-components';
 import { CarouselContainerProps } from '../containers/Dashboard';
 
 const Main = styled.div`
-  padding: 2rem;
+  padding: 1.5rem;
 `;
 const Wrapper = styled.div`
-  background-image: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.7)),
+  background-image: linear-gradient(transparent 20%, rgba(0, 0, 0, 0.767)),
     ${(props) => `url(${props.resource})`};
   background-position: center 25%;
   background-size: cover;
