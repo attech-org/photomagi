@@ -22,7 +22,7 @@ const { Search } = Input;
 const RowWrap = styled(Row)`
   display: none;
   @media screen and (max-width: 576px) {
-    display: inline-flex;
+    display: none; // make inline flex
   }
 `;
 

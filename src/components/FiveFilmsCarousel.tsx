@@ -6,7 +6,7 @@ import { CarouselContainerProps } from '../containers/Dashboard';
 import MovieCard from './MovieCard';
 
 const Content = styled.section`
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 `;
 const TopTitle = styled.p`
   font-size: 180%;
@@ -57,7 +57,7 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
           .map((el, i) => (
             <div key={`slide_${Date.now()}`}>
               <SlideContent>
-                {movies.slice(i * 5, (i + 1) * 5).map(({ image, id, title, imDbRating }) => (
+                {movies.slice(i * 2, (i + 1) * 2).map(({ image, id, title, imDbRating }) => (
                   <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={title} />
                 ))}
               </SlideContent>
