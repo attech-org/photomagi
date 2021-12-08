@@ -9,12 +9,22 @@ import {
   StarFilled,
   SwapOutlined,
 } from '@ant-design/icons';
-import { Badge, Divider, Input, Menu, Row } from 'antd';
+import { Badge, Button, Divider, Input, Menu, Row } from 'antd';
+import Text from 'antd/lib/typography/Text';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useEffect } from 'react';
 import { slide as BurgerMenu } from 'react-burger-menu';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import logo from '../assets/img/logo.png';
+import LoginModal from '../components/Login';
+import RegisterModal from '../components/Register';
+import { auth } from '../firebase/firebase-config';
+import { setUser } from '../redux/profile/actions';
+import { ProfileStore } from '../redux/profile/reducer';
+import { RootStore } from '../redux/store';
 
 const { Item } = Menu;
 const { Search } = Input;
@@ -23,6 +33,10 @@ const RowWrap = styled(Row)`
   display: none;
   @media screen and (max-width: 576px) {
     display: inline-flex;
+    &:first-child {
+      flex-direction: row-reverse;
+      margin-bottom: 1rem;
+    }
   }
 `;
 
@@ -35,29 +49,29 @@ const Logo = styled.img`
 `;
 
 const SearchResult = styled(Search)`
-  width: 77vw;
+  width: 70vw;
   margin: 0 1rem;
   @media screen and (max-width: 530px) {
-    width: 74vw;
+    width: 69vw;
   }
   @media screen and (max-width: 490px) {
-    width: 71vw;
+    width: 67vw;
   }
   @media screen and (max-width: 450px) {
-    width: 68vw;
+    width: 65vw;
   }
   @media screen and (max-width: 400px) {
-    width: 60vw;
+    width: 63vw;
   }
 `;
 
 const styles = {
   bmBurgerButton: {
-    position: 'fixed',
+    position: 'absolute',
     width: '33px',
     height: '30px',
-    top: '18px',
-    right: '17px',
+    top: '65px',
+    right: '16px',
   },
   bmBurgerBars: {
     background: '#af0c0c',
@@ -68,12 +82,11 @@ const styles = {
   bmCrossButton: {
     height: '24px',
     width: '24px',
+    top: '20px',
+    right: '20px',
   },
   bmCross: {
     background: '#bdc3c7',
-    hover: {
-      background: 'red',
-    },
   },
   bmMenuWrap: {
     position: 'fixed',
@@ -110,73 +123,135 @@ const Line = styled(Divider)`
 `;
 
 const LinkItem = styled(Link)`
+  font-size: 1.3rem;
   &:hover {
     color: #f02020 !important;
   }
 `;
 
-const ResponsiveHeader = () => (
-  <RowWrap align="middle" justify="space-between">
-    <Link to="/">
-      <Logo src={logo} />
-    </Link>
-    <SearchResult placeholder="Search By Movie..." />
-    <BurgerMenu styles={styles} right>
-      <StyledMenu defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']} mode="inline" theme="dark">
-        <Item key="/dashboard" icon={<AppstoreFilled />}>
-          <LinkItem to="/dashboard">Dashboard</LinkItem>
-        </Item>
-        <Line />
-        <Item key="/recent" icon={<SwapOutlined />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/recent">Recent</LinkItem>
-          </Badge>
-        </Item>
-        <Line />
-        <Item key="/discovery" icon={<FolderViewOutlined />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/discovery">Discovery</LinkItem>
-          </Badge>
-        </Item>
-        <Line />
-        <Item key="/coming-soon" icon={<DingtalkSquareFilled />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/coming-soon">Coming Soon</LinkItem>
-          </Badge>
-        </Item>
-        <Line />
-        <Item key="/tv-show" icon={<PlayCircleFilled />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/tv-show">Tv Show</LinkItem>
-          </Badge>
-        </Item>
-        <Line />
-        <Item key="/library" icon={<DatabaseFilled />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/library">Library</LinkItem>
-          </Badge>
-        </Item>
-        <Line />
-        <Item key="/my-list" icon={<StarFilled />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/my-list">My List</LinkItem>
-          </Badge>
-        </Item>
-        <Line />
-        <Item key="/settings" icon={<SettingFilled />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/settings">Settings</LinkItem>
-          </Badge>
-        </Item>
-        <Line />
-        <Item key="/logout" icon={<LogoutOutlined />} disabled title="coming soon">
-          <Badge size="small" count="soon" color="red" offset={[5, 7]}>
-            <LinkItem to="/logout">Log Out</LinkItem>
-          </Badge>
-        </Item>
-      </StyledMenu>
-    </BurgerMenu>
-  </RowWrap>
-);
+const BurgerMenuWrap = styled(BurgerMenu)`
+  position: relative;
+`;
+
+const Profile = styled.div`
+  position: absolute;
+  top: 17px;
+  right: 40px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const WrapModal = styled.div`
+  margin-right: -50px;
+`;
+
+const ResponsiveHeader = () => {
+  const dispatch = useDispatch();
+  const profile = useSelector<RootStore, ProfileStore['profile']>((store) => store.profile.profile);
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => currentUser && dispatch(setUser(currentUser)));
+  }, []);
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      dispatch(setUser(undefined));
+    } catch (error: unknown) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <Wrapper>
+      <RowWrap>
+        {profile ? (
+          <WrapModal>
+            <Text>{profile.email}</Text>
+            <Divider type="vertical" />
+            <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
+              Log Out
+            </Button>
+          </WrapModal>
+        ) : (
+          <WrapModal>
+            <LoginModal />
+            <Divider type="vertical" />
+            <RegisterModal />
+          </WrapModal>
+        )}
+      </RowWrap>
+      <RowWrap align="middle" justify="space-between">
+        <Link to="/">
+          <Logo src={logo} />
+        </Link>
+        <SearchResult placeholder="Search By Movie..." />
+        <BurgerMenuWrap styles={styles} right isOpen={false}>
+          {profile ? (
+            <Profile>
+              <Text>{profile.email}</Text>
+              <Divider type="vertical" />
+              <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
+                Log Out
+              </Button>
+              <Divider type="vertical" />
+            </Profile>
+          ) : null}
+          <StyledMenu
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline"
+            theme="dark"
+          >
+            <Item key="/dashboard" icon={<AppstoreFilled />}>
+              <LinkItem to="/dashboard">Dashboard</LinkItem>
+            </Item>
+            <Line />
+            <Item key="/recent" icon={<SwapOutlined />} disabled title="coming soon">
+              <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+                <LinkItem to="/recent">Recent</LinkItem>
+              </Badge>
+            </Item>
+            <Line />
+            <Item key="/discovery" icon={<FolderViewOutlined />} disabled title="coming soon">
+              <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+                <LinkItem to="/discovery">Discovery</LinkItem>
+              </Badge>
+            </Item>
+            <Line />
+            <Item key="/coming-soon" icon={<DingtalkSquareFilled />} disabled title="coming soon">
+              <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+                <LinkItem to="/coming-soon">Coming Soon</LinkItem>
+              </Badge>
+            </Item>
+            <Line />
+            <Item key="/tv-show" icon={<PlayCircleFilled />} title="coming soon">
+              <LinkItem to="/tv-show">Tv Show</LinkItem>
+            </Item>
+            <Line />
+            <Item key="/library" icon={<DatabaseFilled />} disabled title="coming soon">
+              <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+                <LinkItem to="/library">Library</LinkItem>
+              </Badge>
+            </Item>
+            <Line />
+            <Item key="/my-list" icon={<StarFilled />} disabled title="coming soon">
+              <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+                <LinkItem to="/my-list">My List</LinkItem>
+              </Badge>
+            </Item>
+            <Line />
+            <Item key="/settings" icon={<SettingFilled />} disabled title="coming soon">
+              <Badge size="small" count="soon" color="red" offset={[5, 7]}>
+                <LinkItem to="/settings">Settings</LinkItem>
+              </Badge>
+            </Item>
+          </StyledMenu>
+        </BurgerMenuWrap>
+      </RowWrap>
+    </Wrapper>
+  );
+};
 
 export default ResponsiveHeader;

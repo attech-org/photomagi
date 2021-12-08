@@ -12,6 +12,9 @@ const LoginButton = styled(Button)`
   &:hover {
     background-color: #177ddc;
   }
+  @media screen and (max-width: 576px) {
+    background-color: transparent;
+  }
 `;
 interface OnFinish {
   Email: string;
