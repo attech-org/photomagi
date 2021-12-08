@@ -13,7 +13,7 @@ const Card = styled.div`
     ${(props) => `url(${props.resource})`};
   background-size: cover;
   background-position: center;
-  width: 100%;
+  width: 10rem;
   min-height: 100%;
   border-radius: 10px;
   display: flex;
@@ -23,7 +23,6 @@ const Card = styled.div`
   flex: 0 0 10rem;
   min-width: 10rem;
   min-height: 14rem;
-  display: flex;
 `;
 const FilmTitle = styled.p`
   font-weight: bold;

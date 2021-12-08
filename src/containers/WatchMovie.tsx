@@ -170,7 +170,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
 
       <AfterTitleSection>
         <Row gutter={[24, 24]}>
-          <Col span={12} xs={24} md={22}>
+          <Col xs={24} sm={12}>
             <Keywords>
               {singleMovie?.keywords.split(',').map((word) => (
                 <Tag key={singleMovie.id}>{word}</Tag>
@@ -190,7 +190,7 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
               ) : null}
             </BtnBox>
           </Col>
-          <Col span={12} xs={24} md={22}>
+          <Col xs={24} sm={12}>
             {singleMovie?.images?.items.slice(0, 4).map(({ image }) => (
               <StyledImage width="50%" src={image} key={singleMovie.images?.imDbid} />
             ))}
@@ -199,11 +199,9 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
       </AfterTitleSection>
       <Similar>Similar:</Similar>
       <SlideContent align="center" wrap>
-        {singleMovie?.similars
-          .map(({ image, fullTitle, id, imDbRating }) => (
-            <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
-          ))
-          .slice(0, 6)}
+        {singleMovie?.similars.slice(0, 5).map(({ image, fullTitle, id, imDbRating }) => (
+          <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
+        ))}
       </SlideContent>
     </Wrapper>
   );
