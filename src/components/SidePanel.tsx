@@ -15,9 +15,6 @@ const Wrapper = styled.div`
   display: flex;
   margin-bottom: 30px;
   width: 100px;
-  @media (max-width: 576px) {
-    width: 100%;
-  }
 `;
 
 const BoxTitle = styled.h3`
