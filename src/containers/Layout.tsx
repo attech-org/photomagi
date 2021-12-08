@@ -24,18 +24,28 @@ const StyledHeader = styled(Layout.Header)`
   justify-content: space-between;
   background-color: transparent;
   @media screen and (max-width: 576px) {
-    padding: 0.75rem 1rem;
+    padding: 1rem;
+    min-height: 114px;
+    align-items: flex-start;
+    line-height: 0;
   }
 `;
 
 const SearchResult = styled(Search)`
+  width: 30vw;
+  @media screen and (max-width: 576px) {
+    display: none;
+  }
+`;
+
+const Profile = styled.div`
+  margin-left: auto;
   @media screen and (max-width: 576px) {
     display: none;
   }
 `;
 
 const LayoutWrapper: React.FC = ({ children }) => {
-  // const [currentUserState, setCurrentUserState] = useState<User>();
   const dispatch = useDispatch();
   const profile = useSelector<RootStore, ProfileStore['profile']>((store) => store.profile.profile);
   useEffect(() => {
@@ -55,21 +65,21 @@ const LayoutWrapper: React.FC = ({ children }) => {
       <Sidebar />
       <Layout>
         <StyledHeader>
-          <SearchResult placeholder="Search By Movie..." style={{ width: 450 }} />
+          <SearchResult placeholder="Search By Movie..." />
           {profile ? (
-            <div>
+            <Profile>
               <Text>{profile.email}</Text>
               <Divider type="vertical" />
               <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
                 Log Out
               </Button>
-            </div>
+            </Profile>
           ) : (
-            <div>
+            <Profile>
               <LoginModal />
               <Divider type="vertical" />
               <RegisterModal />
-            </div>
+            </Profile>
           )}
           <ResponsiveHeader />
         </StyledHeader>
