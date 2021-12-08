@@ -23,13 +23,13 @@ const DashboardContainer: React.FunctionComponent = () => {
   }, []);
   return (
     <Row>
-      <Col span={19}>
+      <Col sm={{ span: 24 }} lg={{ span: 19 }}>
         <MainCarousel movies={movies} />
         <Col span={24}>
           <FiveFilmsCarousel movies={sortedMovies.slice(0, 20)} />
         </Col>
       </Col>
-      <Col span={4}>
+      <Col sm={{ span: 24 }} lg={{ span: 4 }}>
         <SidePanel movies={movies} />
       </Col>
     </Row>
