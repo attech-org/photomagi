@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { updateUserProfile } from '../redux/profile/actions';
 
 export interface ProfileContainerProps {
-  profile?: Partial<User>;
+  profile?: User;
 }
 
 const ProfileContainer: React.FunctionComponent<ProfileContainerProps> = ({ profile }) => {
