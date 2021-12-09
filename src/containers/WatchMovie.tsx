@@ -200,7 +200,9 @@ const WatchMovieContainer: React.FunctionComponent<WatchMovieProps> = ({ singleM
       <Similar>Similar:</Similar>
       <SlideContent align="center" wrap>
         {singleMovie?.similars.slice(0, 5).map(({ image, fullTitle, id, imDbRating }) => (
-          <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
+          <Link to={`../watchmovie/${id}`} key={id}>
+            <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
+          </Link>
         ))}
       </SlideContent>
     </Wrapper>
