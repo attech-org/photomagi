@@ -176,7 +176,7 @@ const ResponsiveHeader = () => {
           </WrapModal>
         ) : (
           <WrapModal>
-            <LoginModal />
+            <LoginModal title="Log In" />
             <Divider type="vertical" />
             <RegisterModal />
           </WrapModal>
