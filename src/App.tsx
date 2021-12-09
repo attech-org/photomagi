@@ -5,6 +5,7 @@ import DashboardPage from './pages/Dashboard';
 import DiscoveryPage from './pages/Discovery';
 import LibraryPage from './pages/Library';
 import MyListPage from './pages/MyList';
+import ProfilePage from './pages/Profile';
 import RecentPage from './pages/Recent';
 import SettingsPage from './pages/Settings';
 import TvShowPage from './pages/TvShow';
@@ -54,6 +55,9 @@ const App: React.FunctionComponent = () => (
       />
       <Route path="/watchnow">
         <WatchNowPage movieId="" />
+      </Route>
+      <Route path="/profile">
+        <ProfilePage />
       </Route>
       <Route path="*">
         <div>THIS PAGE NOT EXIST</div>
