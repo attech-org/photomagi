@@ -1,4 +1,4 @@
-import { getAuth, updateEmail, User } from 'firebase/auth';
+import { getAuth, updateEmail, updateProfile, User } from 'firebase/auth';
 import { Dispatch } from 'redux';
 
 import { ProfileActionTypes, ProfileActions } from './types';
@@ -17,7 +17,11 @@ export const updateUser = (value: Partial<User>): ProfileActionTypes => ({
 export const updateUserAsync = (value: Partial<User>) => async (dispatch: Dispatch) => {
   const user = auth.currentUser;
   if (user) {
-    await updateEmail(auth.currentUser, value.email || '');
+    if (value.email) {
+      await updateEmail(auth.currentUser, '' && value);
+    }
+
+    await updateProfile(auth.currentUser, value);
     dispatch(updateUser(value));
   }
 };

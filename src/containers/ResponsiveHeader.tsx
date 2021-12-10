@@ -168,7 +168,10 @@ const ResponsiveHeader = () => {
       <RowWrap>
         {profile ? (
           <WrapModal>
-            <Text>{profile.email}</Text>
+            <Link to="/profile">
+              <Text>{profile.email}</Text>
+            </Link>
+
             <Divider type="vertical" />
             <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
               Log Out
