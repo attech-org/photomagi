@@ -3,8 +3,9 @@ import { User } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { updateUserProfile } from '../redux/profile/actions';
+import { updateUserAsync } from '../redux/profile/actions';
 
+const initialValues: Partial<User> = {};
 export interface ProfileContainerProps {
   profile?: Partial<User>;
 }
@@ -12,7 +13,7 @@ export interface ProfileContainerProps {
 const ProfileContainer: React.FunctionComponent<ProfileContainerProps> = ({ profile }) => {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [profileForm] = Form.useForm<ProfileContainerProps>();
+  const [profileForm] = Form.useForm<Partial<User>>();
   useEffect(
     () => () => {
       profileForm.resetFields();
@@ -27,12 +28,13 @@ const ProfileContainer: React.FunctionComponent<ProfileContainerProps> = ({ prof
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const handleSubmitForm = (values: ProfileContainerProps) => {
+  const handleSubmitForm = (values: Partial<User>) => {
     console.log(values);
     dispatch(
-      updateUserProfile({
-        displayName: values?.profile?.displayName,
-        email: values?.profile?.email,
+      updateUserAsync({
+        displayName: values.displayName,
+        email: values.email,
+        phoneNumber: values.phoneNumber,
       }),
     );
     setIsModalVisible(false);
@@ -56,9 +58,16 @@ const ProfileContainer: React.FunctionComponent<ProfileContainerProps> = ({ prof
           name="Personal information"
           form={profileForm}
           layout="vertical"
-          initialValues={{ ...profile }}
+          initialValues={{ ...initialValues, profile }}
           onFinish={handleSubmitForm}
         >
+          <Form.Item
+            label={profile?.displayName}
+            name="displayName"
+            // rules={[formRules.required]}
+          >
+            <Input placeholder="Name" />
+          </Form.Item>
           <Form.Item
             label={profile?.email}
             name="email"
@@ -66,16 +75,17 @@ const ProfileContainer: React.FunctionComponent<ProfileContainerProps> = ({ prof
           >
             <Input placeholder="Email" />
           </Form.Item>
+
           <Form.Item
             label={profile?.displayName}
-            name="name"
+            name="phoneNumber"
             // rules={[formRules.required]}
           >
-            <Input placeholder="Name" />
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
+            <Input placeholder="Phone number" />
           </Form.Item>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </Form>
       </Modal>
     </>
