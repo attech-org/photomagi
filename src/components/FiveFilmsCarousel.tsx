@@ -1,12 +1,13 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Carousel, Space, Spin } from 'antd';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
 import MovieCard from './MovieCard';
 
 const Content = styled.section`
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 `;
 const TopTitle = styled.p`
   font-size: 180%;
@@ -46,6 +47,10 @@ const SlideContent = styled(Space)`
 
 const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ movies }) => {
   const slidesCount = Math.ceil(movies.length / 5);
+  let slidesContentCount = 5;
+  if (window.innerWidth <= 600) {
+    slidesContentCount = 2;
+  }
   const antIcon = <LoadingOutlined style={{ color: 'red', fontSize: 24 }} spin />;
   return (
     <Content>
@@ -57,9 +62,19 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
           .map((el, i) => (
             <div key={`slide_${Date.now()}`}>
               <SlideContent>
-                {movies.slice(i * 5, (i + 1) * 5).map(({ image, id, title, imDbRating }) => (
-                  <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={title} />
-                ))}
+                {movies
+                  .slice(i * slidesContentCount, (i + 1) * slidesContentCount)
+                  .map(({ image, id, title, imDbRating }) => (
+                    <Link to={`watchmovie/${id}`} key={id}>
+                      <MovieCard
+                        key={id}
+                        id={id}
+                        imDbRating={imDbRating}
+                        image={image}
+                        title={title}
+                      />
+                    </Link>
+                  ))}
               </SlideContent>
             </div>
           ))}
