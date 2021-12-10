@@ -3,6 +3,7 @@ import { Layout, Input, Button, Divider, Typography } from 'antd';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import LoginModal from '../components/Login';
@@ -68,7 +69,10 @@ const LayoutWrapper: React.FC = ({ children }) => {
           <SearchResult placeholder="Search By Movie..." />
           {profile ? (
             <Profile>
-              <Text>{profile.email}</Text>
+              <Link to="profile">
+                <Text>{profile.email}</Text>
+              </Link>
+
               <Divider type="vertical" />
               <Button icon={<LogoutOutlined />} onClick={logout} type="ghost" htmlType="button">
                 Log Out

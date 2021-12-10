@@ -45,10 +45,9 @@ export const setMovieTrailer = (value: Trailer): MoviesActionTypes => ({
   payload: value,
 });
 
-export const loadMovieTrailer =
-  (id: string | undefined) => async (dispatch: Dispatch<MoviesActionTypes>) => {
-    const data = await trailer(id);
-    if (data) {
-      dispatch(setMovieTrailer(data));
-    }
-  };
+export const loadMovieTrailer = (id?: string) => async (dispatch: Dispatch<MoviesActionTypes>) => {
+  const data = await trailer(id);
+  if (data) {
+    dispatch(setMovieTrailer(data));
+  }
+};
