@@ -7,7 +7,7 @@ export enum ProfileActions {
 
 interface SetCurrentUserAction {
   type: ProfileActions.SET_CURRENT_USER;
-  payload: User | undefined;
+  payload?: User;
 }
 
 interface UpdateCurrentUserAction {

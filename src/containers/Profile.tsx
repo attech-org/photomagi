@@ -7,7 +7,7 @@ import { updateUserAsync } from '../redux/profile/actions';
 
 const initialValues: Partial<User> = {};
 export interface ProfileContainerProps {
-  profile?: Partial<User>;
+  profile?: User;
 }
 
 const ProfileContainer: React.FunctionComponent<ProfileContainerProps> = ({ profile }) => {
