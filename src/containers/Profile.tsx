@@ -62,11 +62,7 @@ const ProfileContainer: React.FunctionComponent<ProfileContainerProps> = ({ prof
           initialValues={{ ...initialValues, ...profile }}
           onFinish={handleSubmitForm}
         >
-          <Form.Item
-            label="Name:"
-            name="displayName"
-            // rules={[formRules.required]}
-          >
+          <Form.Item label="Name:" name="displayName">
             <Input placeholder="Name" />
           </Form.Item>
           <Button type="primary" htmlType="submit">
