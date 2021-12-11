@@ -1,5 +1,6 @@
 import { LoadingOutlined } from '@ant-design/icons';
 import { Carousel, Space, Spin } from 'antd';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { CarouselContainerProps } from '../containers/Dashboard';
@@ -64,13 +65,15 @@ const FiveFilmsCarousel: React.FunctionComponent<CarouselContainerProps> = ({ mo
                 {movies
                   .slice(i * slidesContentCount, (i + 1) * slidesContentCount)
                   .map(({ image, id, title, imDbRating }) => (
-                    <MovieCard
-                      key={id}
-                      id={id}
-                      imDbRating={imDbRating}
-                      image={image}
-                      title={title}
-                    />
+                    <Link to={`watchmovie/${id}`} key={id}>
+                      <MovieCard
+                        key={id}
+                        id={id}
+                        imDbRating={imDbRating}
+                        image={image}
+                        title={title}
+                      />
+                    </Link>
                   ))}
               </SlideContent>
             </div>

@@ -1,5 +1,6 @@
 import { Space, Typography } from 'antd';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Link } from 'react-router-dom';
 import { ReactYouTubeLite } from 'react-youtube-lite';
 import styled from 'styled-components';
 
@@ -99,7 +100,9 @@ const WatchNowContainer: React.FC<WatchMovieProps> = ({ singleMovie }) => {
       <Similar>Similar:</Similar>
       <SlideContent align="center" wrap>
         {singleMovie?.similars.slice(0, 5).map(({ image, fullTitle, id, imDbRating }) => (
-          <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
+          <Link to={`../watchmovie/${id}`} key={id}>
+            <MovieCard key={id} id={id} imDbRating={imDbRating} image={image} title={fullTitle} />
+          </Link>
         ))}
       </SlideContent>
     </Wrapper>
