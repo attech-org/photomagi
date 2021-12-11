@@ -80,7 +80,7 @@ const LayoutWrapper: React.FC = ({ children }) => {
             </Profile>
           ) : (
             <Profile>
-              <LoginModal />
+              <LoginModal title="Log In" />
               <Divider type="vertical" />
               <RegisterModal />
             </Profile>

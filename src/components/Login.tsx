@@ -16,11 +16,16 @@ const LoginButton = styled(Button)`
     background-color: transparent;
   }
 `;
+
+export interface LoginModalProps {
+  title: string;
+}
+
 interface OnFinish {
   Email: string;
   password: string;
 }
-const LoginModal: React.FunctionComponent = () => {
+const LoginModal: React.FunctionComponent<LoginModalProps> = ({ title }) => {
   const [visibleLogin, setVisibleLogin] = useState(false);
 
   const onFinish = async (values: OnFinish) => {
@@ -42,7 +47,7 @@ const LoginModal: React.FunctionComponent = () => {
   return (
     <>
       <LoginButton type="primary" onClick={() => showModalLogin()}>
-        Log In
+        {title}
       </LoginButton>
       <LogInModal title="Log In" visible={visibleLogin} onCancel={handleCancelLogin} footer={null}>
         <Form
